@@ -11,7 +11,6 @@
     left: auto;
     margin: 0 auto; } }
 
-
 /*! normalize.css v8.0.0 | MIT License | github.com/necolas/normalize.css */
 html {
   line-height: 1.15;
@@ -543,10 +542,9 @@ p,
 blockquote,
 th,
 td {
-  border: 1px solid #dddddd;
   margin: 0;
-  padding: 5px;}
-  
+  padding: 0; }
+
 p {
   margin-bottom: 1rem;
   font-size: inherit;
@@ -890,6 +888,13 @@ ul.no-bullet, ol.no-bullet {
   -webkit-flex-flow: row wrap;
       -ms-flex-flow: row wrap;
           flex-flow: row wrap; }
+
+.center_logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 60px;
+  width: 250px; }
 
 .cell {
   -webkit-box-flex: 0;
@@ -3048,7 +3053,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 1rem;
-  border-radius: 20; }
+  border-radius: 0; }
   thead,
   tbody,
   tfoot {
@@ -3072,13 +3077,13 @@ table {
   tfoot td {
     padding: 0.5rem 0.625rem 0.625rem;
     font-weight: bold;
-    text-align: center; }
+    text-align: left; }
   tbody th,
   tbody td {
     padding: 0.5rem 0.625rem 0.625rem; }
   tbody tr:nth-child(even) {
     border-bottom: 0;
-    background-color: #dddddd; }
+    background-color: #f1f1f1; }
   table.unstriped tbody {
     background-color: #fefefe; }
     table.unstriped tbody tr {

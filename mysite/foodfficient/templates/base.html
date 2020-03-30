@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 {% load static %}
 <head>
-    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
     <link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}" />
 </head>
 <body>
+    <div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }}
+            {% else %}
+                Welcome, Guest
+            {% endif %}
+        </li>
+        <li>
+            <a href="/">Home</a>
+            {% comment %} <ul class="menu vertical">
+            <li><a href="#">One</a></li>
+            <li><a href="#">Two</a></li>
+            <li><a href="#">Three</a></li>
+            </ul> {% endcomment %}
+        </li>
+        <li><a href="#">Profiles</a></li>
+        {% if user.is_authenticated %}
+            <li>            
+                <a href="/addRecipe/">Add Recipe</a>
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+    <div class="top-bar-right">
+        <ul class="menu">
+        <li><input type="search" placeholder="Search"></li>
+        <li><button type="button" class="button">Search</button></li>
+        <li><a href="/about/">About</a></li>
+        <li>
+            {% if user.is_authenticated %}
+                <a href="/logout/">Logout</a>
+            {% else %}
+                <a href="/login/">Login</a>
+            {% endif %}
+        </li>
+        </ul>
+    </div>
+    </div>
+    <a href="/"> <img class="center_logo" src="{% static 'logo/logo.png' %}" alt="Foodfficient" height="10"/> </a>
     {% block content %}
     {% endblock %}
     {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> {% endcomment %}
