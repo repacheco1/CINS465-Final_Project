@@ -893,8 +893,8 @@ ul.no-bullet, ol.no-bullet {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 60px;
-  width: 250px; }
+  height: auto;
+  max-width: 100%; }
 
 .cell {
   -webkit-box-flex: 0;

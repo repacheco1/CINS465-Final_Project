@@ -2,22 +2,25 @@
 
 {% block title %}Login - Foodfficient{% endblock %}
 {% block content %}
-<div class="grid-x grid-padding-x">
-  <!-- <div class="large-4 medium-4 small-12 cell"></div> -->
-  <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
-    <h3 class="text-center">Login</h3>
-    <form action="/login/" method="post">
+<div class="container text-center py-5">
+  <div class="row justify-content-center">
+    <div class="col-sm col-md-6">
+      <div class="card">
+        <div class="card-header">
+        Login
+        </div>
+        <div class="card-body">
+        {% load crispy_forms_tags %}
+        <form action="/login/" method="post">
         {% csrf_token %}
-
+        {{ form | crispy }}
         {{ form.errors }}
-        <label>{{ form.username.label_tag }}</label>
-        {{ form.username }}
-        <label>{{ form.password.label_tag }}</label>
-        {{ form.password }}
-        <input type="submit" class="button expanded" value="Login" />
-        <a href="/register/" class="secondary button expanded">Register</a>
+        <input type="submit" class="btn btn-primary" value="Login" />
+        <a href="/register/" class="btn btn-secondary">Register</a>
         <input type="hidden" name="next" value="{{ request.GET.next }}" />
-    </form>
+      </div>
+    </div>
   </div>
 </div>
+
 {% endblock %}
