@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'foodfficient.apps.FoodfficientConfig',
-    'crispy_forms'
+    'foodfficient.apps.FoodfficientConfig'
 ]
 
 MIDDLEWARE = [
@@ -125,8 +124,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+=======
+>>>>>>> parent of 4a2e664... Change from Foundation to Bootstrap

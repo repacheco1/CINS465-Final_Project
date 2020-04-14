@@ -4,16 +4,24 @@
 {% load static %}
 <h1 class="text-center">{{pageTitle}}</h1>
 
+{% if recipe_list %}
 <table class="table">
     <tr>
-        <th>Recipe</th>
-        <th>Ingredients</th>
+        <th>{{table0}}</th>
+        <th>{{table1}}</th>
+        <th>{{table2}}</th>
+        <th>{{table3}}</th>
+        <th>{{table4}}</th>
     </tr>
-{% for recipe in recipeForm %}
+    {% for recipe in recipe_list %}
     <tr>
-        <td>{{recipe.name}}</td>
-        <td>{{recipe.get_requiredIngredients}}</td>
+        <td>{{recipe.recipe_name}}</td>
+        <td>{{recipe.recipe_time}}</td>
+        <td>{{recipe.recipe_description}}</td>
+        <td>{{recipe.recipe_ingredients}}</td>
+        <td>{{recipe.recipe_instructions}}</td>
     </tr>
-{% endfor %}
+    {% endfor %}
 </table>
+{% endif %}
 {% endblock %}

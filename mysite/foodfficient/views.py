@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from . import models, forms
 
 def logoutPageView(request):
     logout(request)
@@ -16,14 +17,14 @@ def homePageView(request):
     return render(request, "index.html", context=indexContext)
 
 def profilePageView(request):
-    if request.method == "POST":
-        form_instance = forms.ProfileForm(request.POST)
-        if form_instance.is_valid():
-            form_instance.save()
-            return redirect("/profile/")
-            # print("Hi")
-    else:
-        form_instance = forms.ProfileForm
+    # if request.method == "POST":
+    #     form_instance = forms.ProfileForm(request.POST)
+    #     if form_instance.is_valid():
+    #         form_instance.save()
+    #         return redirect("/profile/")
+    #         # print("Hi")
+    # else:
+    #     form_instance = forms.ProfileForm
     profileContext = {
         "title":"Profile - Foodfficient",
         "pageTitle":"Welcome to profiles Foodfficient!",
@@ -59,11 +60,20 @@ def aboutPageView(request):
     return render(request, "about.html", context=aboutContext)
 
 def recipePageView(request):
+    form = forms.RecipeForm()
+    recipe_list = models.RecipeModels.objects.all()
     aboutContext = {
         "title":"Recipes - Foodfficient",
         "pageTitle":"Here is a list of all recipes on Foodfficient!",
         "body":"",
         "body2":"",
+        "table0":"Recipe Title",
+        "table1":"Recipe Time",
+        "table2":"Recipe Description",
+        "table3":"Recipe Ingredients",
+        "table4":"Recipe Instructions",
+        "recipe_list":recipe_list,
+        "form":form,
     }
     return render(request, "recipes.html", context=aboutContext)
 
@@ -71,6 +81,17 @@ def recipePageView(request):
 @login_required
 
 def addRecipePageView(request):
+    if request.method == "POST":
+        form = forms.RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = forms.RecipeForm()
+            return redirect("/recipes/")
+
+        else:
+            form = forms.RecipeForm()
+    # recipe_list = models.RecipeModel.objects.all()
+
     recipeContext = {
         "title":"Recipe - Foodfficient",
         "pageTitle":"Add a recipe to  Foodfficient!",

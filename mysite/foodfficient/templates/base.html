@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" />
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}" /> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/app.css" %}" />
 </head>
 <body>
+<<<<<<< HEAD
     <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <a class="navbar-brand" href="/">
             <img src="{% static 'logo/logo.png' %}" height="30" href="/" class="d-inline-block align-top" atl="Foodfficient">
@@ -57,16 +57,57 @@
         </div>
     </nav>
 
+=======
+    <div class="top-bar">
+    <div class="top-bar-left">
+        <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">
+            {% if user.is_authenticated %}
+                Welcome, {{ user.username }}
+            {% else %}
+                Welcome, Guest
+            {% endif %}
+        </li>
+        <li>
+            <a href="/">Home</a>
+            {% comment %} <ul class="menu vertical">
+            <li><a href="#">One</a></li>
+            <li><a href="#">Two</a></li>
+            <li><a href="#">Three</a></li>
+            </ul> {% endcomment %}
+        </li>
+        <li><a href="#">Profiles</a></li>
+        {% if user.is_authenticated %}
+            <li>            
+                <a href="/addRecipe/">Add Recipe</a>
+            </li>
+        {% endif %}
+        </ul>
+    </div>
+    <div class="top-bar-right">
+        <ul class="menu">
+        <li><input type="search" placeholder="Search"></li>
+        <li><button type="button" class="button">Search</button></li>
+        <li><a href="/about/">About</a></li>
+        <li>
+            {% if user.is_authenticated %}
+                <a href="/logout/">Logout</a>
+            {% else %}
+                <a href="/login/">Login</a>
+            {% endif %}
+        </li>
+        </ul>
+    </div>
+    </div>
+    <a href="/"> <img class="center_logo" src="{% static 'logo/logo.png' %}" alt="Foodfficient" height="10"/> </a>
+>>>>>>> parent of 4a2e664... Change from Foundation to Bootstrap
     {% block content %}
     {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     {% comment %} <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> {% endcomment %}
     {% comment %} <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> {% endcomment %}
-    {% comment %} <script src="{% static "js/vendor/jquery.js" %}"></script>
+    <script src="{% static "js/vendor/jquery.js" %}"></script>
     <script src="{% static "js/vendor/what-input.js" %}"></script>
     <script src="{% static "js/vendor/foundation.js" %}"></script>
     <script src="{% static "js/app.js"%}"></script>
-</body> {% endcomment %}
+</body>
 </html>
