@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% load static %}
+<h1 class="text-center">{{pageTitle}}</h1>
+
+<table class="table">
+    <tr>
+        <th>Recipe</th>
+        <th>Ingredients</th>
+    </tr>
+{% for recipe in recipeForm %}
+    <tr>
+        <td>{{recipe.name}}</td>
+        <td>{{recipe.get_requiredIngredients}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

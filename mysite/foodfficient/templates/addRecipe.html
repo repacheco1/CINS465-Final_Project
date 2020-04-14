@@ -2,11 +2,27 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
 {% load static %}
-<h1>{{pageTitle}}</h1>
+<h1 class="text-center">{{pageTitle}}</h1>
 
-{{body}}
-<br>
-{{body2}}
-<br>
+<div class="container text-center py-5">
+  <div class="row justify-content-center">
+    <div class="col-sm col-md-6">
+      <div class="card">
+        <div class="card-header">
+        Recipes
+        </div>
+        <div class="card-body">
+        {% load crispy_forms_tags %}
+        <form action="/recipes/" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        {% comment %} {{ form.errors }} {% endcomment %}
+        <input type="submit" class="btn btn-primary" value="Add Recipe" />
+        {% comment %} <a href="/register/" class="btn btn-secondary">Register</a>
+        <input type="hidden" name="next" value="{{ request.GET.next }}" /> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

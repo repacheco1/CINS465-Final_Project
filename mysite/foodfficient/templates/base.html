@@ -21,10 +21,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">
                     {% if user.is_authenticated %}
-                        Welcome, {{ user.username }}
+                    <a class="nav-link" href="/profile/">
+                        Welcome, {{ user.first_name }}
                     {% else %}
+                    <a class="nav-link" href="#">
                         Welcome, Guest
                     {% endif %} 
                     <span class="sr-only">(current)</span></a>
@@ -36,7 +37,7 @@
                 {% endif %}
 
                 <li class="nav-item active">
-                
+                    <a class="nav-link" href="/recipes/">Recipes</a>
                 </li>
                 <li class="nav-item active">
                 </li>

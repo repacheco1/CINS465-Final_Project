@@ -1,12 +1,45 @@
 {% extends "base.html" %}
+{% block title %}Profile - Foodfficient{% endblock %}
 {% block content %}
 {% load static %}
-{% block title %}{{ title }}{% endblock %}
-<h1>{{pageTitle}}</h1>
+<h1 class="text-center">{{ user.get_full_name }}</h1>
 
-{{body}}
-<br>
-{{body2}}
-<br>
+
+<ul>
+    <li>Profile picture: {{ user.profile.avatar }}</li>
+    <li>Username: {{ user.username }}</li>
+    <li>Location: {{ user.profile.location }}</li>
+    <li>Birth Date: {{ user.profile.birth_date }}</li>
+</ul>
+
+{% comment %} <form method="post">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>  {% endcomment %}
+
+
+<div class="container text-center py-5">
+  <div class="row justify-content-center">
+    <div class="col-sm col-md-6">
+      <div class="card">
+        <div class="card-header">
+        Profile
+        </div>
+        <div class="card-body">
+        {% load crispy_forms_tags %}
+        <form action="/profile/" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        {{ user_form.as_p }}
+        {% comment %} {{ profile_form.as_p }} {% endcomment %}
+        <input type="submit" class="btn btn-primary" value="Update Profile" />
+        {% comment %} <a href="/register/" class="btn btn-secondary">Register</a>
+        <input type="hidden" name="next" value="{{ request.GET.next }}" /> {% endcomment %}
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

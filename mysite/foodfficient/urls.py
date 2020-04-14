@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import RecipeListView
 
 urlpatterns = [
     path('', views.homePageView, name='Home'),
@@ -10,4 +11,5 @@ urlpatterns = [
     path('addRecipe/', views.addRecipePageView, name='Add Recipe'),
     path('logout/', views.logoutPageView, name='Logout'),
     path('about/', views.aboutPageView, name='About'),
+    path('recipes/', RecipeListView.as_view(), name='Recipes')
 ]

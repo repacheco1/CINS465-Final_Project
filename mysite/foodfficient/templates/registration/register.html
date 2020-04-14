@@ -2,6 +2,7 @@
 
 {% block title %}Register - Foodfficient{% endblock %}
 {% block content %}
+<h1 class="text-center">{{pageTitle}}</h1>
 <div class="container text-center py-5">
   <div class="row justify-content-center">
     <div class="col-sm col-md-6">
@@ -14,7 +15,7 @@
         <form action="/register/" method="post">
         {% csrf_token %}
         {{ form | crispy }}
-        {{ form.errors }}
+        {% comment %} {{ form.errors }} {% endcomment %}
         <input type="submit" class="btn btn-primary" value="Register" />
         {% comment %} <a href="/register/" class="btn btn-secondary">Register</a>
         <input type="hidden" name="next" value="{{ request.GET.next }}" /> {% endcomment %}
@@ -23,24 +24,4 @@
   </div>
 </div>
 
-
-{% comment %} <div class="grid-x grid-padding-x">
-  <!-- <div class="large-4 medium-4 small-12 cell"></div> -->
-  <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
-    <h4 class="text-center">Register</h4>
-    <form action="/register/" method="post">
-        {% csrf_token %}
-        {{ form.errors }}
-        {{ form.username.label_tag }}
-        {{ form.username }}
-        {{ form.email.label_tag }}
-        {{ form.email }}
-        {{ form.password1.label_tag }}
-        {{ form.password1 }}
-        {{ form.password2.label_tag }}
-        {{ form.password2 }}
-        <input type="submit" class="button expanded" value="Register" />
-    </form>
-  </div>
-</div> {% endcomment %}
 {% endblock %}
