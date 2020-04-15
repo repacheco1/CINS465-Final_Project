@@ -4,14 +4,16 @@
 {% load static %}
 <h1 class="text-center">{{pageTitle}}</h1>
 
-{% if recipe_list %}
-<ul class="list-group">
-    {% for recipe in recipe_list %}
-    <li class="list-group-item active " style="background-color: #4CAF50;"> {{ recipe.name }} </li>
-    <li "list-group-item"> Estimated cooking time: {{ recipe.time }} minutes.</li>
-    <li "list-group-item"> Description: {{ recipe.description }} </li>
-    {% endfor %}
-</ul>
-{% endif %}
+<div class="container text-left py-5">
+    {% if recipe_list %}
+    <ul class="list-group">
+        {% for recipe in recipe_list %}
+        <li class="list-group-item active " style="background-color: #4CAF50;"> {{ recipe.name }} </li>
+        <li "list-group-item"> Estimated cooking time: {{ recipe.time }} minutes.</li>
+        <li "list-group-item"> Description: {{ recipe.description }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
 
 {% endblock %}

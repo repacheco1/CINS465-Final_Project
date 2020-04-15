@@ -4,17 +4,31 @@
 {% load static %}
 <h1 class="text-center">{{pageTitle}}</h1>
 
-<div class="grid-x grid-padding-x">
-  <!-- <div class="large-4 medium-4 small-12 cell"></div> -->
-  <div class="large-4 medium-4 small-12 large-offset-4 medium-offset-4 cell">
-    <h3 class="text-center">Suggestion</h3>
-    <form action="/suggestion/" method="post" enctype="multipart/form-data">
+<div class="container text-center py-5">
+  <div class="row justify-content-center">
+    <div class="col-sm col-md-6">
+      <div class="card">
+        <div class="card-header" style="background-color: #4CAF50;">
+        Add Recipe
+        </div>
+        <div class="card-body">
+        {% load crispy_forms_tags %}
+        <form action="/add-recipe/" method="post">
         {% csrf_token %}
-
-        {{ form }}
-        <input type="submit" class="button expanded" value="Add Suggestion" />
-    </form>
+        {{ form | crispy }}
+        {% comment %} {{ form.errors }} {% endcomment %}
+        <input type="submit" class="btn btn-primary" value="Add Recipe" />
+        {% comment %} <a href="/register/" class="btn btn-secondary">Register</a>
+        <input type="hidden" name="next" value="{{ request.GET.next }}" /> {% endcomment %}
+      </div>
+    </div>
   </div>
 </div>
 
 {% endblock %}
+
+
+
+{% comment %} {% load crispy_forms_tags %}
+{% csrf_token %}
+{{ form | crispy }} {% endcomment %}

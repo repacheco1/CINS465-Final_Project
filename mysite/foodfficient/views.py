@@ -5,7 +5,7 @@ from django.views import generic
 from django.db import transaction
 from django.http import JsonResponse
 from datetime import datetime, timezone
-from . import forms, models
+from . import (forms, models)
 
 
 def logoutPageView(request):
@@ -79,20 +79,18 @@ def recipesPageView(request):
 @login_required
 
 def addRecipePageView(request, page=0):
-    # if request.method == "POST":
-    #     if request.user.is_authenticated:
-    #         form = forms.RecipeForm(request.POST, request.FILES)
-    #         if form.is_valid():
-    #             form.save(request)
-    #             return redirect("/")
-    #     else:
-    #         form = forms.RecipeForm()
-    # else:
-    #     form = forms.RecipeForm()
+    if request.method =="POST":
+        form = forms.RecipeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            form = forms.RecipeForm()
+
+    else:
+        form = forms.RecipeForm()
     
     addContext = {
         "title":"Add Recipe - Foodfficient",
-        "pageTitle":"Welcome to add a recipe Foodfficient!",
+        "pageTitle":"Welcome! Add a recipe to Foodfficient!",
         "body":"",
         "body2":"",
         "form":form
