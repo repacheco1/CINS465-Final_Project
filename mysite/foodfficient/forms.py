@@ -2,7 +2,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from . import models
+from django.forms import ModelForm
+from foodfficient.models import Profile
+from django.forms import modelformset_factory, formset_factory
+from django.db import models
 
 def must_be_unique(value):
     user = User.objects.filter(email=value)
@@ -11,6 +14,7 @@ def must_be_unique(value):
     # Always return the cleaned data, whether you have changed it or
     # not.
     return value
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
@@ -31,19 +35,12 @@ class RegistrationForm(UserCreationForm):
             user.save()
         return user
 
-class RecipeForm(forms.Form):
-    recipe_name = forms.CharField(max_length=50)
-    recipe_time = forms.IntegerField()
-    recipe_description = forms.Textarea()
-    recipe_ingredients = forms.Textarea()
-    recipe_instructions = forms.Textarea()
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
 
-    def save(self):
-        recipe_instance = models.RecipeModel()
-        recipe_instance.recipe_name = self.cleaned_data["recipe_name "]
-        recipe_instance.recipe_time = self.cleaned_data["recipe_time"]
-        recipe_instance.recipe_description = self.cleaned_data["recipe_description"]
-        recipe_instance.recipe_ingredients = self.cleaned_data["recipe_ingredients"]
-        recipe_instance.recipe_instructions = self.cleaned_data["recipe_instructions"]
-        recipe_instance.save()
-        return recipe_instance
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio', 'location', 'avatar')
