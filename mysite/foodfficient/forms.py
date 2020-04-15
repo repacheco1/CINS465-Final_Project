@@ -52,10 +52,11 @@ class RecipeForm(forms.Form):
     time = forms.IntegerField(label='Estimated Cooking Time (minutes): ', min_value=0)
     description = forms.CharField(label='Recipe Description: ', max_length=500, widget=forms.Textarea)
 
-    def save(self):
+    def save(self, request):
         recipe_instance = models.Recipe()
         recipe_instance.name = self.cleaned_data["name"]
         recipe_instance.time = self.cleaned_data["time"]
-        recipe_instance.description =self.cleaned_data["description"]
+        recipe_instance.description = self.cleaned_data["description"]
+        recipe_instance.author = request.user
         recipe_instance.save()
         return recipe_instance

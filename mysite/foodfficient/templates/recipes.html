@@ -8,9 +8,14 @@
     {% if recipe_list %}
     <ul class="list-group">
         {% for recipe in recipe_list %}
-        <li class="list-group-item active " style="background-color: #4CAF50;"> {{ recipe.name }} </li>
+        <li class="list-group-item active " style="background-color: #4CAF50;"> {{ recipe.name }} by {{ recipe.author }}</li>
         <li "list-group-item"> Estimated cooking time: {{ recipe.time }} minutes.</li>
         <li "list-group-item"> Description: {{ recipe.description }} </li>
+        {% comment %} <ul> {% endcomment %}
+        {% for com in recipe.comments %}
+        <li "list-group-item">Comments: {{ com.author }}: {{ com.body }} </li>
+        {% endfor %}
+        {% comment %} </ul> {% endcomment %}
         {% endfor %}
     </ul>
     {% endif %}

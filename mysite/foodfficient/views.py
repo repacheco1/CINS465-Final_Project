@@ -65,7 +65,19 @@ def aboutPageView(request):
     return render(request, "about.html", context=aboutContext)
 
 def recipesPageView(request):
-    recipe_list = models.Recipe.objects.all()
+    recipe_objects = models.Recipe.objects.all()
+    recipe_list = []
+    for rec in recipe_objects:
+        comment_objects = models.Comment.objects.filter(recipe = rec)
+        temp_rec = {}
+        temp_rec["name"] = rec.name
+        temp_rec["author"] = rec.author.username
+        temp_rec["time"] = rec.time
+        temp_rec["description"] = rec.description
+        temp_rec["comments"]=comment_objects
+        recipe_list+=[temp_rec]
+        
+
     aboutContext = {
         "title":"Recipes - Foodfficient",
         "pageTitle":"Here is a list of recipes available at Foodfficient!",
@@ -78,11 +90,11 @@ def recipesPageView(request):
 
 @login_required
 
-def addRecipePageView(request, page=0):
+def addRecipePageView(request):
     if request.method =="POST":
         form = forms.RecipeForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save(request)
             form = forms.RecipeForm()
 
     else:
