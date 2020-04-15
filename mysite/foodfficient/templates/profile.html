@@ -18,27 +18,6 @@
     <li>Location: {{ user.profile.location }}</li>
 </ul>
 
-
-<div class="container text-center py-5">
-  <div class="row justify-content-center">
-    <div class="col-sm col-md-6">
-      <div class="card">
-        <div class="card-header">
-        Profile
-        </div>
-        <div class="card-body">
-        {% load crispy_forms_tags %}
-        <form action="/profile/" method="post">
-        {% csrf_token %}
-        {{ form | crispy }}
-        {{ user_form.as_p }}
-        {% comment %} {{ profile_form.as_p }} {% endcomment %}
-        <input type="submit" class="btn btn-primary" value="Update Profile" />
-        {% comment %} <a href="/register/" class="btn btn-secondary">Register</a>
-        <input type="hidden" name="next" value="{{ request.GET.next }}" /> {% endcomment %}
-      </div>
-    </div>
-  </div>
-</div>
+<a href="/edit-profile/" type="button" class="btn btn-success">Edit Profile</a>
 
 {% endblock %}

@@ -38,6 +38,23 @@ def profilePageView(request):
     }
     return render(request, "profile.html", context=profileContext)
 
+def editProfilePageView(request):
+    # if request.method == "POST":
+    #     form_instance = forms.ProfileForm(request.POST)
+    #     if form_instance.is_valid():
+    #         form_instance.save()
+    #         return redirect("/profile/")
+    #         # print("Hi")
+    # else:
+    #     form_instance = forms.ProfileForm
+    editContext = {
+        "title":"Edit Profile - Foodfficient",
+        "pageTitle":"Edit Profile",
+        "body":"",
+        "body2":"",
+    }
+    return render(request, "editProfile.html", context=editContext)
+
 
 def registerPageView(request):
     if request.method == "POST":

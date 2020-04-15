@@ -15,10 +15,11 @@
         <li "list-group-item"> Estimated cooking time: {{ recipe.time }} minutes.</li>
         <li "list-group-item"> Description: {{ recipe.description }} </li>
         {% comment %} <ul> {% endcomment %}
-        {% for com in recipe.comments %}
-        <li "list-group-item">Comments: {{ com.author }}: {{ com.body }} </li>
-        {% endfor %}
-        {% comment %} </ul> {% endcomment %}
+        <ol "list-group-item">Comments:
+            {% for com in recipe.comments %}
+            <li "list-group-item">{{ com.author }}: {{ com.body }} </li>
+            {% endfor %}
+        </ol>
         {% endfor %}
     </ul>
     {% endif %}
