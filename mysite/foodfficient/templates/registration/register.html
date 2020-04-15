@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
+{% load static %}
+
 {% block title %}Register - Foodfficient{% endblock %}
 {% block content %}
 <h1 class="text-center">{{pageTitle}}</h1>
@@ -11,7 +15,6 @@
         Register
         </div>
         <div class="card-body">
-        {% load crispy_forms_tags %}
         <form action="/register/" method="post">
         {% csrf_token %}
         {{ form | crispy }}

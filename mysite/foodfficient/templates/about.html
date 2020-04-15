@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+
+{% load static %}
+
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-{% load static %}
-<h1>{{pageTitle}}</h1>
+<h1 class="text-center">{{pageTitle}}</h1>
 
 {{body}}
 <br>

@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% load static %}
+
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-{% load static %}
+
 <h1 class="text-center">{{pageTitle}}</h1>
 
 <div class="container text-center py-5">
@@ -12,7 +17,6 @@
         Add Recipe
         </div>
         <div class="card-body">
-        {% load crispy_forms_tags %}
         <form action="/add-recipe/" method="post">
         {% csrf_token %}
         {{ form | crispy }}

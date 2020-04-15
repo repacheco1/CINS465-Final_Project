@@ -26,7 +26,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=35, blank=True)
     avatar = models.ImageField(
         max_length=144,
-        upload_to='uploads/%Y/%m/%d/',
+        upload_to='avatars',
         null=True)
 
     def __str__(self):
@@ -41,3 +41,5 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+    # uploads/%Y/%m/%d/
