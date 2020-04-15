@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+class Recipe(models.Model):
+    name = models.CharField(max_length=50)
+    time = models.IntegerField()
+    description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

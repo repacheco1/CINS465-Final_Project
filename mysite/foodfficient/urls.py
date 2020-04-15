@@ -11,5 +11,5 @@ urlpatterns = [
     # path('addRecipe/', views.addRecipePageView, name='Add Recipe'),
     path('logout/', views.logoutPageView, name='Logout'),
     path('about/', views.aboutPageView, name='About'),
-    # path('recipes/', views.recipesPageView, name='Recipes'),
+    path('recipes/', views.recipesPageView, name='Recipes'),
 ]

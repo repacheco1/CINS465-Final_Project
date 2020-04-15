@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.views import generic
 from django.db import transaction
-from . import forms, models
 from django.http import JsonResponse
 from datetime import datetime, timezone
+from . import forms, models
 
 
 def logoutPageView(request):
@@ -20,9 +20,6 @@ def homePageView(request):
         "body2":"",
     }
     return render(request, "index.html", context=indexContext)
-
-
-
 
 def profilePageView(request):
     if request.method == "POST":
@@ -40,7 +37,7 @@ def profilePageView(request):
         "body2":"",
     }
     return render(request, "profile.html", context=profileContext)
-# Create your views here.
+
 
 def registerPageView(request):
     if request.method == "POST":
@@ -66,21 +63,32 @@ def aboutPageView(request):
         "body2":"",
     }
     return render(request, "about.html", context=aboutContext)
+
+def recipesPageView(request):
+    recipe_list = models.Recipe.objects.all()
+    aboutContext = {
+        "title":"Recipes - Foodfficient",
+        "pageTitle":"Here is a list of recipes available at Foodfficient!",
+        "body":"",
+        "body2":"",
+        "recipe_list":recipe_list,
+    }
+    return render(request, "recipes.html", context=aboutContext)
     
 
 @login_required
 
-def addRecipePageView(request):
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            form = forms.RecipeForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save(request)
-                return redirect("/")
-        else:
-            form = forms.RecipeForm()
-    else:
-        form = forms.RecipeForm()
+def addRecipePageView(request, page=0):
+    # if request.method == "POST":
+    #     if request.user.is_authenticated:
+    #         form = forms.RecipeForm(request.POST, request.FILES)
+    #         if form.is_valid():
+    #             form.save(request)
+    #             return redirect("/")
+    #     else:
+    #         form = forms.RecipeForm()
+    # else:
+    #     form = forms.RecipeForm()
     
     addContext = {
         "title":"Add Recipe - Foodfficient",
