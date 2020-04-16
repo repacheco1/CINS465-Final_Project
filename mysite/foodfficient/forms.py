@@ -49,14 +49,23 @@ class ProfileForm(forms.ModelForm):
 
 class RecipeForm(forms.Form):
     name = forms.CharField(label='Recipe name: ', max_length=50)
-    time = forms.IntegerField(label='Estimated Cooking Time (minutes): ', min_value=0)
+    time = forms.IntegerField(label='Total Time (minutes): ', min_value=0)
     description = forms.CharField(label='Recipe Description: ', max_length=500, widget=forms.Textarea)
+    ingredients = forms.CharField(label='Recipe Ingredients: ', widget=forms.Textarea)
+    optional_ingredients = forms.CharField(label='Recipe Optional Ingredients: ',widget=forms.Textarea, required=False)
+    substitutions = forms.CharField(label='Recipe Substitutions: ', widget=forms.Textarea, required=False)
+    instructions = forms.CharField(label='Recipe Instructions: ', widget=forms.Textarea)
 
     def save(self, request):
         recipe_instance = models.Recipe()
         recipe_instance.name = self.cleaned_data["name"]
         recipe_instance.time = self.cleaned_data["time"]
         recipe_instance.description = self.cleaned_data["description"]
+        recipe_instance.ingredients = self.cleaned_data["ingredients"]
+        recipe_instance.optional_ingredients = self.cleaned_data["optional_ingredients"]
+        recipe_instance.substitutions = self.cleaned_data["substitutions"]
+        recipe_instance.instructions = self.cleaned_data["instructions"]
         recipe_instance.author = request.user
         recipe_instance.save()
         return recipe_instance
+

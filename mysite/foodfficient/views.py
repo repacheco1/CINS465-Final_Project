@@ -6,6 +6,7 @@ from django.db import transaction
 from django.http import JsonResponse
 from datetime import datetime, timezone
 from . import (forms, models)
+from .models import Recipe
 
 
 def logoutPageView(request):
@@ -53,7 +54,7 @@ def editProfilePageView(request):
         "body":"",
         "body2":"",
     }
-    return render(request, "editProfile.html", context=editContext)
+    return render(request, "edit_profile.html", context=editContext)
 
 
 def registerPageView(request):
@@ -81,28 +82,36 @@ def aboutPageView(request):
     }
     return render(request, "about.html", context=aboutContext)
 
-def recipesPageView(request):
-    recipe_objects = models.Recipe.objects.all()
-    recipe_list = []
-    for rec in recipe_objects:
-        comment_objects = models.Comment.objects.filter(recipe = rec)
-        temp_rec = {}
-        temp_rec["name"] = rec.name
-        temp_rec["author"] = rec.author.username
-        temp_rec["time"] = rec.time
-        temp_rec["description"] = rec.description
-        temp_rec["comments"]=comment_objects
-        recipe_list+=[temp_rec]
+class RecipeList(generic.ListView):
+    queryset = Recipe.objects.filter().order_by('-created_on')
+    template_name = "recipes.html"
+
+class RecipeDetail(generic.DetailView):
+    model = Recipe
+    template_name = "recipe_details.html"
+
+# def recipesPageView(request):
+#     recipe_objects = models.Recipe.objects.all()
+#     recipe_list = []
+#     for rec in recipe_objects:
+#         comment_objects = models.Comment.objects.filter(recipe = rec)
+#         temp_rec = {}
+#         temp_rec["name"] = rec.name
+#         temp_rec["author"] = rec.author.username
+#         temp_rec["time"] = rec.time
+#         temp_rec["description"] = rec.description
+#         temp_rec["comments"]=comment_objects
+#         recipe_list+=[temp_rec]
         
 
-    aboutContext = {
-        "title":"Recipes - Foodfficient",
-        "pageTitle":"Here is a list of recipes available at Foodfficient!",
-        "body":"",
-        "body2":"",
-        "recipe_list":recipe_list,
-    }
-    return render(request, "recipes.html", context=aboutContext)
+#     aboutContext = {
+#         "title":"Recipes - Foodfficient",
+#         "pageTitle":"Here is a list of recipes available at Foodfficient!",
+#         "body":"",
+#         "body2":"",
+#         "recipe_list":recipe_list,
+#     }
+#     return render(request, "recipes.html", context=aboutContext)
     
 
 @login_required
@@ -124,7 +133,7 @@ def addRecipePageView(request):
         "body2":"",
         "form":form
     }
-    return render(request, "addRecipe.html", context=addContext)
+    return render(request, "add_recipe.html", context=addContext)
 
 def commentPageView(request, rec_id):
     if not request.user.is_authenticated:

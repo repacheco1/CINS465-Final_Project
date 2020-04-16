@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+
+<h1 class="text-center">{{pageTitle}}</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1>{{ recipe.name }}</h1>
+        <p class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} | Total Time: {{ recipe.time }} minutes.</p>
+        <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
+        <h5> Ingredients: </h5>
+        <a class="card-text ">{{ recipe.ingredients |  linenumbers |  linebreaks |  safe}}</a>
+        {% if recipe.optional_ingredients%}
+            <h5>Optional Ingredients: </h5>
+            <a class="card-text ">{{ recipe.optional_ingredients |  linenumbers |  linebreaks |  safe}}</a>
+        {% endif %}
+        {% if recipe.substitutions%}
+            <h5>Substitutions: </h5>
+            <a class="card-text ">{{ recipe.substitutions |  linenumbers |  linebreaks |  safe}}</a>
+        {% endif %}
+        <h5> Instructions: </h5>
+        <a class="card-text ">{{ recipe.instructions |  linenumbers |  linebreaks |  safe}}</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
