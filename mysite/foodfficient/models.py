@@ -47,7 +47,7 @@ pre_save.connect(pre_save_reciever, sender=Recipe)
 class Comment(models.Model):
     body = models.TextField(max_length=500)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='comments')
     published_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:

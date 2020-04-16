@@ -2,10 +2,10 @@
 
 {% load static %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Recipes - Foodfficient{% endblock %}
 {% block content %}
 
-<h1 class="text-center">{{pageTitle}}</h1>
+<h1 class="text-center">Here is a list of the lastest Foodfficient recipes!</h1>
 {% if recipe_list %}
     {% for recipe in recipe_list %}
         <div class="card" style="width: 18rem;">

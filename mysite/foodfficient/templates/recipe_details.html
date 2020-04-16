@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% load static %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ recipe.name }} - Foodfficient{% endblock %}
 {% block content %}
 
 <h1 class="text-center">{{pageTitle}}</h1>
@@ -12,7 +14,8 @@
     <div class="col-md-8 card mb-4  mt-3 left  top">
       <div class="card-body">
         <h1>{{ recipe.name }}</h1>
-        <p class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} | Total Time: {{ recipe.time }} minutes.</p>
+        <a class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} </a>
+        <p class=" text-muted">Total Time: {{ recipe.time }} minutes.</p>
         <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
         <h5> Ingredients: </h5>
         <a class="card-text ">{{ recipe.ingredients |  linenumbers |  linebreaks |  safe}}</a>
@@ -28,8 +31,47 @@
         <a class="card-text ">{{ recipe.instructions |  linenumbers |  linebreaks |  safe}}</a>
       </div>
     </div>
-
   </div>
 </div>
+
+<div class="col-md-8 card mb-4  mt-3 ">
+    <div class="card-body">
+    <!-- comments -->
+    <h2>{{ comments.count }} comments</h2>
+
+    {% for comment in comments%}
+        <div class="comments" style="padding: 10px;">
+            <p class="font-weight-bold">
+            {{ comment.author }}
+            <span class=" text-muted font-weight-normal">
+                &#9679; {{ comment.published_on }}
+            </span>
+            </p>
+            {{ comment.body | linebreaks }}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+      <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+        <a>Write a comment: </a>
+          {{ form.body | as_crispy_field }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 {% endblock %}

@@ -15,7 +15,8 @@ urlpatterns = [
     path('logout/', views.logoutPageView, name='logout'),
     path('about/', views.aboutPageView, name='about'),
     path('recipes/', views.RecipeList.as_view(), name='recipes'),
-    path('<slug:slug>/', views.RecipeDetail.as_view(), name='recipe_details'),
+    path('<slug:slug>/', views.recipeDetailPageView, name='recipe_details'),
+    # path('<slug:slug>/', views.RecipeDetail.as_view(), name='recipe_details'),
     # path('recipes/', views.recipesPageView, name='Recipes'),
 ]+ static(
     settings.MEDIA_URL,

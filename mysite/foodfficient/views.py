@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.views import generic
@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from datetime import datetime, timezone
 from . import (forms, models)
 from .models import Recipe
+from .forms import CommentForm
 
 
 def logoutPageView(request):
@@ -89,30 +90,25 @@ class RecipeList(generic.ListView):
 class RecipeDetail(generic.DetailView):
     model = Recipe
     template_name = "recipe_details.html"
-
-# def recipesPageView(request):
-#     recipe_objects = models.Recipe.objects.all()
-#     recipe_list = []
-#     for rec in recipe_objects:
-#         comment_objects = models.Comment.objects.filter(recipe = rec)
-#         temp_rec = {}
-#         temp_rec["name"] = rec.name
-#         temp_rec["author"] = rec.author.username
-#         temp_rec["time"] = rec.time
-#         temp_rec["description"] = rec.description
-#         temp_rec["comments"]=comment_objects
-#         recipe_list+=[temp_rec]
-        
-
-#     aboutContext = {
-#         "title":"Recipes - Foodfficient",
-#         "pageTitle":"Here is a list of recipes available at Foodfficient!",
-#         "body":"",
-#         "body2":"",
-#         "recipe_list":recipe_list,
-#     }
-#     return render(request, "recipes.html", context=aboutContext)
     
+def recipeDetailPageView(request, slug):
+    recipe = get_object_or_404(Recipe, slug=slug)
+    comments = recipe.comments.filter()
+    new_comment = None
+    if request.method =="POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.save()
+    else:
+        form = CommentForm()
+    commentContext = {
+        "recipe": recipe,
+        "comments": comments,
+        "new_comment": new_comment,
+        "form":form
+    }
+    return render(request, "recipe_details.html", context=commentContext)
 
 @login_required
 
