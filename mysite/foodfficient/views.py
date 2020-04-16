@@ -96,9 +96,11 @@ def recipeDetailPageView(request, slug):
     comments = recipe.comments.filter()
     new_comment = None
     if request.method =="POST":
-        form = CommentForm(request.POST)
+        form = CommentForm(data=request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.recipe = recipe
             new_comment.save()
     else:
         form = CommentForm()
@@ -106,6 +108,7 @@ def recipeDetailPageView(request, slug):
         "recipe": recipe,
         "comments": comments,
         "new_comment": new_comment,
+        # "rec_id" = rec_id,
         "form":form
     }
     return render(request, "recipe_details.html", context=commentContext)
@@ -131,26 +134,6 @@ def addRecipePageView(request):
     }
     return render(request, "add_recipe.html", context=addContext)
 
-def commentPageView(request, rec_id):
-    if not request.user.is_authenticated:
-        return redirect("/")
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            form = forms.CommentForm(request.POST)
-            if form.is_valid():
-                form.save(request, rec_id)
-                return redirect("/")
-        else:
-            form = forms.CommentForm()
-    else:
-        form = forms.CommentForm()
-    commentContext = {
-        "title":"Comment - Foodfficient",
-        "pageTitle":"Add a comment!",
-        "rec_id":rec_id,
-        "form":form
-    }
-    return render(request,"comment.html", context=commentcontext)
 
 
 # @transaction.atomic
