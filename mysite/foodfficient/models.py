@@ -5,11 +5,24 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 
+def upload_to_avatars(instance, filename):
+    ext = filename.split('.')[-1]
+    return 'avatars/%s/%s.%s' % (instance.user.username, instance.user.username, ext)
+
+def upload_to_recipies(instance, filename):
+    ext = filename.split('.')[-1]
+    return 'recipies/%s/%s.%s' % (instance.author.username, instance.slug, ext)
+
 class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200, unique=True)
     time = models.IntegerField()
+    image = models.ImageField(
+        max_length=500,
+        upload_to=upload_to_recipies,
+        null=True,
+        blank=True)
     description = models.TextField(max_length=500)
     ingredients = models.TextField()
     optional_ingredients = models.TextField(blank=True)
@@ -61,9 +74,10 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=35, blank=True)
     avatar = models.ImageField(
-        max_length=144,
-        upload_to='avatars',
-        null=True)
+        max_length=500,
+        upload_to=upload_to_avatars,
+        null=True,
+        blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -77,5 +91,3 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-
-    # uploads/%Y/%m/%d/

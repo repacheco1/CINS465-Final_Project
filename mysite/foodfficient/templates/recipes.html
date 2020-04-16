@@ -9,8 +9,9 @@
 {% if recipe_list %}
     {% for recipe in recipe_list %}
         <div class="card" style="width: 18rem;">
-            
-        {% comment %} <img class="card-img-top" src="..." alt="Card image cap"> {% endcomment %}
+        {% if recipe.image %}
+            <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}">
+        {% endif %}
             <div class="card-body">
                 <h5 class="card-title"> {{ recipe.name }} by {{ recipe.author }} </h5>
                 <h6 class="card-text"> Total time: {{ recipe.time }} minutes.</h6>

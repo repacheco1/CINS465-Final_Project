@@ -7,7 +7,7 @@ from foodfficient.models import Profile
 from django.forms import modelformset_factory, formset_factory
 from django.db import models
 from . import models
-from .models import Comment
+from .models import Comment, Recipe
 
 def must_be_unique(value):
     user = User.objects.filter(email=value)
@@ -51,6 +51,7 @@ class ProfileForm(forms.ModelForm):
 class RecipeForm(forms.Form):
     name = forms.CharField(label='Name: ', max_length=50)
     time = forms.IntegerField(label='Total Time (minutes): ', min_value=0)
+    image = forms.ImageField(label='Submite picture: ', max_length=500,)
     description = forms.CharField(label='Description: ', max_length=500, widget=forms.Textarea)
     ingredients = forms.CharField(label='Ingredients: ', widget=forms.Textarea)
     optional_ingredients = forms.CharField(label='Optional Ingredients: ',widget=forms.Textarea, required=False)
@@ -61,6 +62,7 @@ class RecipeForm(forms.Form):
         recipe_instance = models.Recipe()
         recipe_instance.name = self.cleaned_data["name"]
         recipe_instance.time = self.cleaned_data["time"]
+        recipe_instance.image = self.cleaned_data["image"]
         recipe_instance.description = self.cleaned_data["description"]
         recipe_instance.ingredients = self.cleaned_data["ingredients"]
         recipe_instance.optional_ingredients = self.cleaned_data["optional_ingredients"]
@@ -69,6 +71,7 @@ class RecipeForm(forms.Form):
         recipe_instance.author = request.user
         recipe_instance.save()
         return recipe_instance
+
 
 class CommentForm(forms.ModelForm):
     class Meta:

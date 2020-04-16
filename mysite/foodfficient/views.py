@@ -116,8 +116,9 @@ def recipeDetailPageView(request, slug):
 @login_required
 
 def addRecipePageView(request):
+    # form = forms.RecipeForm(data=request.POST, files=request.FILES)
     if request.method =="POST":
-        form = forms.RecipeForm(request.POST)
+        form = forms.RecipeForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save(request)
             form = forms.RecipeForm()

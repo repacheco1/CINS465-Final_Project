@@ -13,7 +13,12 @@
   <div class="row">
     <div class="col-md-8 card mb-4  mt-3 left  top">
       <div class="card-body">
-        <h1>{{ recipe.name }}</h1>
+        <div class="col text-center">
+            <h1>{{ recipe.name }}</h1>
+        </div>
+        {% if recipe.image %}
+            <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}">
+        {% endif %}
         <a class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} </a>
         <p class=" text-muted">Total Time: {{ recipe.time }} minutes.</p>
         <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
