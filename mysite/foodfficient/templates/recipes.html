@@ -8,8 +8,8 @@
 <div class="container-fluid">
     <h1 class="text-center">Here is a list of the lastest Foodfficient recipes!</h1>
     {% if recipe_list %}
-        {% for recipe in recipe_list %}
-            <div class="row">
+        <div class="row">
+            {% for recipe in recipe_list %}
                 <div class="col-4 py-3">
                     <div class="card shadow border-0 ">
                         {% if recipe.image %}
@@ -25,10 +25,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     {% endif %}
 </div>
-
 
 {% endblock %}
