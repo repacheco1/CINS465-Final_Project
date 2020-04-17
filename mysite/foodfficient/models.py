@@ -17,7 +17,9 @@ class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200, unique=True)
-    time = models.IntegerField()
+    prep_time = models.IntegerField()
+    cook_time = models.IntegerField()
+    total_time = models.IntegerField()
     image = models.ImageField(
         max_length=500,
         upload_to=upload_to_recipies,

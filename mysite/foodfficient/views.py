@@ -4,10 +4,10 @@ from django.contrib.auth import logout
 from django.views import generic
 from django.db import transaction
 from django.http import JsonResponse
-from datetime import datetime, timezone
+from django.contrib.auth.models import User
 from . import (forms, models)
 from .models import Recipe
-from .forms import CommentForm
+from .forms import CommentForm, RecipeForm
 
 
 def logoutPageView(request):
@@ -15,11 +15,13 @@ def logoutPageView(request):
     return redirect("/")
 
 def homePageView(request):
+    total_recipes = Recipe.objects.count()
+    total_users = User.objects.count()
     indexContext = {
         "title":"Home - Foodfficient",
         "pageTitle":"Welcome to Foodfficient!",
-        "body":"",
-        "body2":"",
+        "total_recipes": total_recipes,
+        "total_users": total_users,
     }
     return render(request, "index.html", context=indexContext)
 
@@ -32,10 +34,12 @@ def profilePageView(request):
             # print("Hi")
     else:
         form_instance = forms.ProfileForm
+
+    # recipe_count = Recipe.objects.filter(author='id').count()
     profileContext = {
         "title":"Profile - Foodfficient",
         "pageTitle":"Welcome to profiles Foodfficient!",
-        "body":"",
+        # "recipe_count": recipe_count,
         "body2":"",
     }
     return render(request, "profile.html", context=profileContext)
@@ -60,17 +64,17 @@ def editProfilePageView(request):
 
 def registerPageView(request):
     if request.method == "POST":
-        form_instance = forms.RegistrationForm(request.POST)
-        if form_instance.is_valid():
-            form_instance.save()
+        form = forms.RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
             return redirect("/login/")
             # print("Hi")
     else:
-        form_instance = forms.RegistrationForm()
+        form = forms.RegistrationForm()
     registerContext = {
         "title":"Registration - Foodfficient",
         "pageTitle":"Welcome to Foodfficient! Start by creating an account.",
-        "form":form_instance,
+        "form":form,
     }
     return render(request, "registration/register.html", context=registerContext)
 

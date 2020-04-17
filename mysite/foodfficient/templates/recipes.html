@@ -17,7 +17,7 @@
                         {% endif %}
                         <div class="card-body">
                             <h4 class="card-title"> {{ recipe.name }} by {{ recipe.author }} </h4>
-                            <h6 class="card-subtitle text-muted"> Total time: {{ recipe.time }} minutes.</h6>
+                            <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
                             <p class="card-text">{{ recipe.description |  linebreaks }}</p>
                             <div class="col text-center">
                                 <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>

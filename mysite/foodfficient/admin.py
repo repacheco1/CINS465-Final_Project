@@ -2,7 +2,7 @@ from django.contrib import admin
 from . import models
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'time', 'author', 'created_on')
+    list_display = ('name', 'slug', 'total_time', 'author', 'created_on')
     list_filter = ('created_on',)
     search_fields = ('name', 'ingredients', 'optional_ingredients', 'substitutions')
     prepopulated_fields = {'slug': ('name',)}
