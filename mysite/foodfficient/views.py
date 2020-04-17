@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.views import generic
 from django.db import transaction
 from django.http import JsonResponse
+from django.db.models import Q
 from django.contrib.auth.models import User
 from . import (forms, models)
 from .models import Recipe
@@ -86,6 +87,17 @@ def aboutPageView(request):
         "body2":"",
     }
     return render(request, "about.html", context=aboutContext)
+
+class SearchResultsView(generic.ListView):
+    model = Recipe
+    template_name = 'search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Recipe.objects.filter(
+            Q(name__icontains=query) | Q(ingredients__icontains=query) | Q(total_time__icontains=query)
+        )
+        return object_list
 
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter().order_by('-created_on')

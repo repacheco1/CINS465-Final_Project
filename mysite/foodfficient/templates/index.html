@@ -6,6 +6,13 @@
 {% block content %}
 <h1 class="text-center">{{pageTitle}}</h1>
 
+<div class="col text-center">
+    <h3>Search</h3>
+    <form action="{% url 'search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Search...">
+    </form>
+</div>
+
 <h3 class="text-center">Recipes available: {{ total_recipes }}</h3>
 
 <h3 class="text-center">Users registered: {{ total_users }}</h3>
