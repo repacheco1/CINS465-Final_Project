@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+<style>
+body {
+  background: -webkit-gradient(linear, left top, left bottom, from(#8bc34a), to(#1b5e20)) fixed;
+}</style>
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
@@ -71,6 +75,6 @@
     {% comment %} <script src="{% static "js/vendor/jquery.js" %}"></script>
     <script src="{% static "js/vendor/what-input.js" %}"></script>
     <script src="{% static "js/vendor/foundation.js" %}"></script>
-    <script src="{% static "js/app.js"%}"></script>
-</body> {% endcomment %}
+    {% comment %} <script src="{% static "js/app.js"%}"></script> {% endcomment %}
+</body>
 </html>
