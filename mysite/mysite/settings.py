@@ -25,7 +25,7 @@ SECRET_KEY = 'yj7s7w4w5eq8fp+!12zq#)y=!1cop5^9bv@ff-t2pi==7es&py'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.10','localhost',]
 
 STATIC_URL = '/static/'
 
