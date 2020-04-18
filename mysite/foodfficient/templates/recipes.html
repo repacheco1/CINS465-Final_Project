@@ -6,22 +6,24 @@
 {% block content %}
  <h1 class="text-center">Here is a list of the lastest Foodfficient recipes!</h1>
 
-<div class="container-fluid" style="padding: 25px;">
+<div class="container-fluid" >
     {% if recipe_list %}
         <div class="row">
             {% for recipe in recipe_list %}
-                <div class="card" style="width: 18rem;">
-                    <div class="card shadow border-0 ">
-                        {% if recipe.image %}
-                            <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="250">
-                        {% endif %}
-                        <div class="card-body">
-                            <h4 class="card-title"> {{ recipe.name }} </h4>
-                            <h6 class="card-subtitle text-muted"> By {{ recipe.author }}</h6>
-                            <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
-                            <p class="card-text">{{ recipe.description |  linebreaks }}</p>
-                            <div class="col text-center">
-                                <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>
+                <div style="padding: 20px ;">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card shadow border-0 ">
+                            {% if recipe.image %}
+                                <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="250">
+                            {% endif %}
+                            <div class="card-body">
+                                <h4 class="card-title"> {{ recipe.name }} </h4>
+                                <h6 class="card-subtitle text-muted"> By {{ recipe.author }}</h6>
+                                <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
+                                <p class="card-text">{{ recipe.description |  linebreaks }}</p>
+                                <div class="col text-center">
+                                    <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>
+                                </div>
                             </div>
                         </div>
                     </div>
