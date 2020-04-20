@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'foodfficient.apps.FoodfficientConfig',
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
+    # 'rest_framework',
 ]
 
 MIDDLEWARE = [
