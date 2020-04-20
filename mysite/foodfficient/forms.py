@@ -52,7 +52,7 @@ class RecipeForm(forms.Form):
     name = forms.CharField(label='Name: ', max_length=50)
     prep_time = forms.IntegerField(label='Prep Time (minutes): ', min_value=0)
     cook_time = forms.IntegerField(label='Cook Time (minutes): ', min_value=0)
-    image = forms.ImageField(label='Submite picture: ', max_length=500)
+    image = forms.ImageField(label='Submit picture: ', max_length=500)
     description = forms.CharField(label='Description: ', max_length=500, widget=forms.Textarea)
     ingredients = forms.CharField(label='Ingredients: ', widget=forms.Textarea)
     optional_ingredients = forms.CharField(label='Optional Ingredients: ',widget=forms.Textarea, required=False)

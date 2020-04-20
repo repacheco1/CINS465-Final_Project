@@ -17,11 +17,11 @@
             <h1>{{ recipe.name }}</h1>
         </div>
         {% if recipe.image %}
-            <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}">
+            <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="400px">
         {% endif %}
         <a class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} </a>
         <p class=" text-muted">Prep Time: {{ recipe.prep_time }} minutes. | Cook Time: {{ recipe.cook_time }} minutes. | Total Time: {{ recipe.total_time }} minutes.</p>
-        <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</a>
+        <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
         <h5> Ingredients: </h5>
         <a class="card-text ">{{ recipe.ingredients |  linenumbers |  linebreaks |  safe}}</a>
         {% if recipe.optional_ingredients%}

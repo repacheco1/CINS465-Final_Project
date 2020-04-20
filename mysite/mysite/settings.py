@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'foodfficient.apps.FoodfficientConfig',
-    'crispy_forms'
+    'crispy_forms',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

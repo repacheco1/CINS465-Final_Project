@@ -2,32 +2,35 @@
 
 {% load static %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Search Results - Foodfficient{% endblock %}
 {% block content %}
-<h1 class="text-center">{{pageTitle}}</h1>
+ <h1 class="text-center">Search Results</h1>
 
-<ul>
-  {% for recipe in object_list %}
-    <div class="row">
-        {% for recipe in recipe_list %}
-            <div class="col-4 py-3">
-                <div class="card shadow border-0 ">
-                    {% if recipe.image %}
-                        <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h4 class="card-title"> {{ recipe.name }} by {{ recipe.author }} </h4>
-                        <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
-                        <p class="card-text">{{ recipe.description |  linebreaks }}</p>
-                        <div class="col text-center">
-                            <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>
+<div class="container-fluid" >
+    {% if recipe_list %}
+        <div class="row">
+            {% for recipe in recipe_list %}
+                <div style="padding: 20px ;">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card shadow border-0 ">
+                            {% if recipe.image %}
+                                <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="250">
+                            {% endif %}
+                            <div class="card-body">
+                                <h4 class="card-title"> {{ recipe.name }} </h4>
+                                <h6 class="card-subtitle text-muted"> By {{ recipe.author }}</h6>
+                                <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
+                                <p class="card-text">{{ recipe.description |  linebreaks }}</p>
+                                <div class="col text-center">
+                                    <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-  {% endfor %}
-</ul>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
 
 {% endblock %}
