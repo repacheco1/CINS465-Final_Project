@@ -4,7 +4,7 @@
 
 {% block title %}Recipes - Foodfficient{% endblock %}
 {% block content %}
- <h1 class="text-center">Here is a list of the lastest Foodfficient recipes!</h1>
+<h1 class="text-center">Here is a list of the lastest Foodfficient recipes!</h1>
 
 <div class="container-fluid" >
     {% if recipe_list %}
@@ -17,7 +17,7 @@
                                 <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="250">
                             {% endif %}
                             <div class="card-body">
-                                <h4 class="card-title" href="{% url 'recipe_details' recipe.slug  %}"> {{ recipe.name }} </h4>
+                                <h4 class="card-title"> {{ recipe.name }} </h4>
                                 <h6 class="card-subtitle text-muted"> By {{ recipe.author }}</h6>
                                 <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
                                 <p class="card-text">{{ recipe.description |  linebreaks }}</p>

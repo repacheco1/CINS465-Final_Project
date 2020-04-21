@@ -122,8 +122,8 @@ def unique_slug_generator_blog(instance):
         slug = "{slug}-{num}".format(slug=constant_slug, num=num)
     return slug
 
-def pre_save_reciever(sender, instance, *args, **kwargs):
+def pre_save_reciever_blog(sender, instance, *args, **kwargs):
     if not instance.slug or instance.title != Blog.objects.filter(slug=instance.slug):
         instance.slug = unique_slug_generator_blog(instance)
 
-pre_save.connect(pre_save_reciever, sender=Blog)
+pre_save.connect(pre_save_reciever_blog, sender=Blog)
