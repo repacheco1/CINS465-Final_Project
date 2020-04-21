@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from foodfficient.models import Profile
 from django.forms import modelformset_factory, formset_factory
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+from django_summernote.fields import SummernoteTextFormField, SummernoteTextField
 from django.db import models
 from . import models
 from .models import Comment, Recipe, Blog
@@ -88,4 +88,4 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ('title', 'content')
-        widgets = {'content': SummernoteWidget}
+    content = SummernoteTextFormField()
