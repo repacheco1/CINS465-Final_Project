@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import logout
 from django.views import generic
 from django.db import transaction
@@ -7,8 +8,8 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.models import User
 from . import (forms, models)
-from .models import Recipe
-from .forms import CommentForm, RecipeForm
+from .models import Recipe, Blog
+from .forms import CommentForm, RecipeForm, BlogForm
 
 
 def logoutPageView(request):
@@ -96,7 +97,7 @@ class SearchResultsView(generic.ListView):
         query = self.request.GET.get('q')
         object_list = Recipe.objects.filter(
             Q(name__icontains=query) | Q(ingredients__icontains=query) | Q(total_time__icontains=query)
-        )
+        ).order_by('-created_on')
         return object_list
 
 class RecipeList(generic.ListView):
@@ -120,6 +121,7 @@ def recipeDetailPageView(request, slug):
             new_comment.save()
     else:
         form = CommentForm()
+
     commentContext = {
         "recipe": recipe,
         "comments": comments,
@@ -128,6 +130,15 @@ def recipeDetailPageView(request, slug):
         "form":form
     }
     return render(request, "recipe_details.html", context=commentContext)
+
+class BlogList(generic.ListView):
+    queryset = Blog.objects.filter().order_by('-published_on')
+    template_name = "blog.html"
+
+class BlogDetails(generic.DetailView):
+    model = Blog
+    template_name = "blog_details.html"
+
 
 @login_required
 
@@ -152,6 +163,28 @@ def addRecipePageView(request):
     return render(request, "add_recipe.html", context=addContext)
 
 
+
+@staff_member_required
+def addBlogPageView(request):
+    if request.method =="POST":
+        form = forms.BlogForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            new_entry = form.save(commit=False)
+            new_entry.author = request.user
+            new_entry.save()
+            form = BlogForm()
+
+    else:
+        form = forms.BlogForm()
+
+    addContext = {
+        "title":"Add Blog Entry - Foodfficient",
+        "pageTitle":"Welcome! Add a blog entry to Foodfficient!",
+        "body":"",
+        "body2":"",
+        "form":form
+    }
+    return render(request, "add_blog.html", context=addContext)
 
 # @transaction.atomic
 # def profilePageView(request):

@@ -5,9 +5,10 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from foodfficient.models import Profile
 from django.forms import modelformset_factory, formset_factory
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from django.db import models
 from . import models
-from .models import Comment, Recipe
+from .models import Comment, Recipe, Blog
 
 def must_be_unique(value):
     user = User.objects.filter(email=value)
@@ -82,3 +83,9 @@ class CommentForm(forms.ModelForm):
         model = Comment
         labels = {'body': 'Comment: '}
         fields = ('body', )
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ('title', 'content')
+        widgets = {'content': SummernoteWidget}

@@ -21,9 +21,9 @@
                                 <h6 class="card-subtitle text-muted"> By {{ recipe.author }}</h6>
                                 <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
                                 <p class="card-text">{{ recipe.description |  linebreaks }}</p>
-                                {% comment %} <div class="col text-center">
+                                <div class="col text-center">
                                     <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>
-                                </div> {% endcomment %}
+                                </div>
                             </div>
                         </div>
                     </div>

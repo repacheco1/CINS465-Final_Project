@@ -15,7 +15,7 @@ def upload_to_recipies(instance, filename):
 
 class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=200, unique=True)
     prep_time = models.IntegerField()
     cook_time = models.IntegerField()
@@ -25,7 +25,7 @@ class Recipe(models.Model):
         upload_to=upload_to_recipies,
         null=True,
         blank=True)
-    description = models.TextField(max_length=500)
+    description = models.TextField()
     ingredients = models.TextField()
     optional_ingredients = models.TextField(blank=True)
     substitutions = models.TextField(blank=True)
@@ -93,3 +93,37 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+class Blog(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150, unique=True)
+    content = models.TextField()
+    slug = models.SlugField(max_length=200, unique=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    published_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-published_on']
+
+    def get_absolute_url(self):
+        return reverse("posts:detail", kwargs={"slug": self.slug})
+
+    def __str__(self):
+        return self.title
+
+def unique_slug_generator_blog(instance):
+    constant_slug = slugify(instance.title)
+    slug = constant_slug
+    num = 0
+    gen = instance.__class__
+    while gen.objects.filter(slug=slug).exists():
+        num += 1
+        slug = "{slug}-{num}".format(slug=constant_slug, num=num)
+    return slug
+
+def pre_save_reciever(sender, instance, *args, **kwargs):
+    if not instance.slug or instance.title != Blog.objects.filter(slug=instance.slug):
+        instance.slug = unique_slug_generator_blog(instance)
+
+pre_save.connect(pre_save_reciever, sender=Blog)

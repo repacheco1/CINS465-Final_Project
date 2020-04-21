@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     'foodfficient.apps.FoodfficientConfig',
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
+    'django_summernote',
     # 'rest_framework',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

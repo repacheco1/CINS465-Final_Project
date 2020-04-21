@@ -1,9 +1,9 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from . import views
 from django.conf.urls.static import static
-from .views import SearchResultsView
+# from .views import SearchResultsView
 
 urlpatterns = [
     path('', views.homePageView, name='home'),
@@ -16,7 +16,11 @@ urlpatterns = [
     path('about/', views.aboutPageView, name='about'),
     path('recipes/', views.RecipeList.as_view(), name='recipes'),
     path('recipes/<slug:slug>/', views.recipeDetailPageView, name='recipe_details'),
-    path('search/', SearchResultsView.as_view(), name='search_results'),
+    path('search/', views.SearchResultsView.as_view(), name='search_results'),
+    path('add-blog/', views.addBlogPageView, name='add_blog'),
+    path('blog/', views.BlogList.as_view(), name='blog'),
+    path('blog/<slug:slug>/', views.BlogDetails.as_view(), name='blog_details'),
+    path('summernote/', include('django_summernote.urls')),
     # path('<slug:slug>/', views.RecipeDetail.as_view(), name='recipe_details'),
     # path('recipes/', views.recipesPageView, name='Recipes'),
 ]+ static(

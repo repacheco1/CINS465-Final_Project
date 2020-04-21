@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ blog.title }}  - Foodfficient{% endblock %}
+{% block content %}
+{% comment %} <h1 class="text-center">{{pageTitle}}</h1> {% endcomment %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1>{{ blog.title }}</h1>
+        <p class=" text-muted">{{ blog.author }} | {{ post.published_on }}</p>
+        <p class="card-text ">{{ blog.content | safe }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
