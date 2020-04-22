@@ -18,7 +18,7 @@
                             {% endif %}
                             <div class="card-body">
                                 <h4 class="card-title"> {{ recipe.name }} </h4>
-                                <h6 class="card-subtitle text-muted"> By {{ recipe.author }}</h6>
+                                <h6 class="card-subtitle"> By {{ recipe.author }}</h6>
                                 <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
                                 <p class="card-text">{{ recipe.description |  linebreaks }}</p>
                                 <div class="col text-center">

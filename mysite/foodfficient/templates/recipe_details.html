@@ -18,7 +18,9 @@
             <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="400px">
         {% endif %}
         <a class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} </a>
-        <p class=" text-muted">Prep Time: {{ recipe.prep_time }} minutes. | Cook Time: {{ recipe.cook_time }} minutes. | Total Time: {{ recipe.total_time }} minutes.</p>
+        <br>
+        <a class=" text-muted">Prep Time: {{ recipe.prep_time }} minutes. | Cook Time: {{ recipe.cook_time }} minutes. | Total Time: {{ recipe.total_time }} minutes.</a>
+        <p class=" text-muted">Cuisine: {{ recipe.get_cuisine_display }} </p>
         <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
         <h5> Ingredients: </h5>
         <a class="card-text ">{{ recipe.ingredients |  linenumbers |  linebreaks |  safe}}</a>

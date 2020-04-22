@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
+from .recipe_utils import cuisine_choices
 
 def upload_to_avatars(instance, filename):
     ext = filename.split('.')[-1]
@@ -20,6 +21,8 @@ class Recipe(models.Model):
     prep_time = models.IntegerField()
     cook_time = models.IntegerField()
     total_time = models.IntegerField()
+    servings = models.IntegerField()
+    cuisine = models.IntegerField(choices=cuisine_choices)
     image = models.ImageField(
         max_length=500,
         upload_to=upload_to_recipies,

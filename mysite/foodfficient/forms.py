@@ -9,6 +9,7 @@ from django_summernote.fields import SummernoteTextFormField, SummernoteTextFiel
 from django.db import models
 from . import models
 from .models import Comment, Recipe, Blog
+from .recipe_utils import cuisine_choices
 
 def must_be_unique(value):
     user = User.objects.filter(email=value)
@@ -53,6 +54,8 @@ class RecipeForm(forms.Form):
     name = forms.CharField(label='Name: ', max_length=50)
     prep_time = forms.IntegerField(label='Prep Time (minutes): ', min_value=0)
     cook_time = forms.IntegerField(label='Cook Time (minutes): ', min_value=0)
+    servings = forms.IntegerField(label='Servings: ', min_value=0)
+    cuisine = forms.ChoiceField(choices=cuisine_choices)
     image = forms.ImageField(label='Submit picture: ', max_length=500)
     description = forms.CharField(label='Description: ', max_length=500, widget=forms.Textarea)
     ingredients = forms.CharField(label='Ingredients: ', widget=forms.Textarea)
@@ -64,6 +67,8 @@ class RecipeForm(forms.Form):
         recipe_instance.name = self.cleaned_data["name"]
         recipe_instance.prep_time = self.cleaned_data["prep_time"]
         recipe_instance.cook_time = self.cleaned_data["cook_time"]
+        recipe_instance.servings = self.cleaned_data["servings"]
+        recipe_instance.cuisine - self.cleaned_data["cuisine"]
         recipe_instance.image = self.cleaned_data["image"]
         recipe_instance.description = self.cleaned_data["description"]
         recipe_instance.ingredients = self.cleaned_data["ingredients"]
