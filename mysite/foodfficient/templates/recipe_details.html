@@ -22,13 +22,9 @@
         <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
         <h5> Ingredients: </h5>
         <a class="card-text ">{{ recipe.ingredients |  linenumbers |  linebreaks |  safe}}</a>
-        {% if recipe.optional_ingredients%}
-            <h5>Optional Ingredients: </h5>
-            <a class="card-text ">{{ recipe.optional_ingredients |  linenumbers |  linebreaks |  safe}}</a>
-        {% endif %}
-        {% if recipe.substitutions%}
+        {% if recipe.notes%}
             <h5>Substitutions: </h5>
-            <a class="card-text ">{{ recipe.substitutions |  linenumbers |  linebreaks |  safe}}</a>
+            <a class="card-text ">{{ recipe.notes |  linebreaks |  safe}}</a>
         {% endif %}
         <h5> Instructions: </h5>
         <a class="card-text ">{{ recipe.instructions |  linenumbers |  linebreaks |  safe}}</a>

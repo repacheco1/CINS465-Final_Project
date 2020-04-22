@@ -56,9 +56,8 @@ class RecipeForm(forms.Form):
     image = forms.ImageField(label='Submit picture: ', max_length=500)
     description = forms.CharField(label='Description: ', max_length=500, widget=forms.Textarea)
     ingredients = forms.CharField(label='Ingredients: ', widget=forms.Textarea)
-    optional_ingredients = forms.CharField(label='Optional Ingredients: ',widget=forms.Textarea, required=False)
-    substitutions = forms.CharField(label='Substitutions: ', widget=forms.Textarea, required=False)
     instructions = forms.CharField(label='Instructions: ', widget=forms.Textarea)
+    notes = forms.CharField(label='Notes: ', widget=forms.Textarea, required=False)
 
     def save(self, request):
         recipe_instance = models.Recipe()
@@ -68,9 +67,8 @@ class RecipeForm(forms.Form):
         recipe_instance.image = self.cleaned_data["image"]
         recipe_instance.description = self.cleaned_data["description"]
         recipe_instance.ingredients = self.cleaned_data["ingredients"]
-        recipe_instance.optional_ingredients = self.cleaned_data["optional_ingredients"]
-        recipe_instance.substitutions = self.cleaned_data["substitutions"]
         recipe_instance.instructions = self.cleaned_data["instructions"]
+        recipe_instance.notes = self.cleaned_data["notes"]
         recipe_instance.author = request.user
         recipe_instance.total_time = self.cleaned_data["prep_time"] + self.cleaned_data["cook_time"]
         recipe_instance.save()
