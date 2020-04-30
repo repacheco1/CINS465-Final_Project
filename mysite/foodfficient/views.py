@@ -148,7 +148,7 @@ def blogDetailPageView(request, slug):
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.author = request.user
-            new_comment.recipe = blog
+            new_comment.entry = blog
             new_comment.save()
     else:
         form = CommentForm()
