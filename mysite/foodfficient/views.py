@@ -108,36 +108,59 @@ class RecipeDetail(generic.DetailView):
     model = Recipe
     template_name = "recipe_details.html"
     
-def recipeDetailPageView(request, slug):
-    recipe = get_object_or_404(Recipe, slug=slug)
-    comments = recipe.comments.filter()
+# def recipeDetailPageView(request, slug):
+#     recipe = get_object_or_404(Recipe, slug=slug)
+#     comments = recipe.comments.filter()
+#     new_comment = None
+#     if request.method =="POST":
+#         form = CommentForm(data=request.POST)
+#         if form.is_valid():
+#             new_comment = form.save(commit=False)
+#             new_comment.author = request.user
+#             new_comment.recipe = recipe
+#             new_comment.save()
+#     else:
+#         form = CommentForm()
+
+#     commentContext = {
+#         "recipe": recipe,
+#         "comments": comments,
+#         "new_comment": new_comment,
+#         # "rec_id" = rec_id,
+#         "form":form
+#     }
+#     return render(request, "recipe_details.html", context=commentContext)
+
+class BlogList(generic.ListView):
+    queryset = Blog.objects.filter().order_by('-published_on')
+    template_name = "blog.html"
+
+# class BlogDetails(generic.DetailView):
+#     model = Blog
+#     template_name = "blog_details.html"
+
+def blogDetailPageView(request, slug):
+    blog = get_object_or_404(Blog, slug=slug)
+    comments = blog.comments.filter()
     new_comment = None
     if request.method =="POST":
         form = CommentForm(data=request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.author = request.user
-            new_comment.recipe = recipe
+            new_comment.recipe = blog
             new_comment.save()
     else:
         form = CommentForm()
 
     commentContext = {
-        "recipe": recipe,
+        "blog": blog,
         "comments": comments,
         "new_comment": new_comment,
         # "rec_id" = rec_id,
         "form":form
     }
-    return render(request, "recipe_details.html", context=commentContext)
-
-class BlogList(generic.ListView):
-    queryset = Blog.objects.filter().order_by('-published_on')
-    template_name = "blog.html"
-
-class BlogDetails(generic.DetailView):
-    model = Blog
-    template_name = "blog_details.html"
+    return render(request, "blog_details.html", context=commentContext)
 
 
 @login_required

@@ -19,8 +19,8 @@
         <form action="/login/" method="post">
         {% csrf_token %}
         {{ form | crispy }}
-        <input type="submit" class="btn btn-primary" value="Login" />
-        <a href="/register/" class="btn btn-secondary">Register</a>
+        <input type="submit" class="btn btn-success" value="Login" />
+        <a href="/register/" class="btn btn-primary">Register</a>
         <input type="hidden" name="next" value="{{ request.GET.next }}" />
       </div>
     </div>

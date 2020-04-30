@@ -19,8 +19,8 @@
                             <div class="card-body">
                                 <h4 class="card-title"> {{ recipe.name }} </h4>
                                 <h6 class="card-subtitle"> By {{ recipe.author }}</h6>
-                                <h6 class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</h6>
-                                <p class="card-text">{{ recipe.description |  linebreaks }}</p>
+                                <p class="card-subtitle text-muted"> Total time: {{ recipe.total_time }} minutes.</p>
+                                <a class="card-text">{{ recipe.ingredients |  linenumbers |  linebreaks |  safe}}</a>
                                 <div class="col text-center">
                                     <a href="{% url 'recipe_details' recipe.slug  %}" class="btn btn-success">See Recipe </a>
                                 </div>

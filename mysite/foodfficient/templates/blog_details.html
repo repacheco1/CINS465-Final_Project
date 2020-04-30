@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% load static %}
 
 {% block title %}{{ blog.title }}  - Foodfficient{% endblock %}
@@ -10,9 +12,53 @@
     <div class="col-md-10 card mb-4  mt-3  top">
       <div class="card-body">
         <h1>{{ blog.title }}</h1>
-        <p class=" text-muted">{{ blog.author }} | {{ blog.published_on }}</p>
+        <p class=" text-muted">By {{ blog.author }} on {{ blog.published_on }}</p>
         <p class="card-text ">{{ blog.content | safe }}</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+        <div class="col-md-10 card mb-4  mt-3 ">
+            <div class="card-body">
+            <!-- comments -->
+            <h2>{{ comments.count }} comments</h2>
+            {% for comment in comments%}
+                <div class="comments" style="padding: 10px;">
+                    <p class="font-weight-bold">
+                    {{ comment.author }}
+                    <span class=" text-muted font-weight-normal">
+                        &#9679; {{ comment.published_on }}
+                    </span>
+                    </p>
+                    {{ comment.body | linebreaks }}
+                </div>
+                {% endfor %}
+            </div>
+            {% if user.is_authenticated %}
+              <div class="card-body">
+                {% if new_comment %}
+                <div class="alert alert-success" role="alert">
+                  Your comment has been submitted.
+                </div>
+                {% else %}
+                <h3>Leave a comment</h3>
+                <form method="post" style="margin-top: 1.3em;">
+                  {{ form.body | as_crispy_field }}
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+                </form>
+                {% endif %}
+                </div>
+              {% else %}
+              <div class="card-body">
+                  <h3>Log in to leave a comment.</h3>
+                  <a href="{% url 'login'  %}" type="button" class="btn btn-success">Log in </a>
+                </div>
+            {% endif %}
+        </div>
     </div>
   </div>
 </div>

@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
     'django_summernote',
+    'multiselectfield',
+    # 'reviews',
     # 'rest_framework',
 ]
 

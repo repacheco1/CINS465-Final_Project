@@ -1,4 +1,4 @@
-cuisine_choices = (
+CUISINE_CHOICES = (
     (1, 'Ainu'),
     (2, 'Albanian'),
     (3, 'Argentine'),
@@ -108,3 +108,18 @@ cuisine_choices = (
     (107, 'Zanzibari'),
 )
 
+DIET_CHOICES = (
+    (1, 'Dairy Free'),
+    (2, 'Gluten Free'),
+    (3, 'Keto'),
+    (4, 'Vegan'),
+    (5, 'Vegetarian'),
+)
+
+# RATING_CHOICES = (
+#     ('1', _('Terrible')),
+#     ('2', _('Poor')),
+#     ('3', _('Average')),
+#     ('4', _('Very Good')),
+#     ('5', _('Excellent')),
+# )

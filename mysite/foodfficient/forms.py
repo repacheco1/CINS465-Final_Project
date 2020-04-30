@@ -9,14 +9,12 @@ from django_summernote.fields import SummernoteTextFormField, SummernoteTextFiel
 from django.db import models
 from . import models
 from .models import Comment, Recipe, Blog
-from .recipe_utils import cuisine_choices
+from .recipe_utils import CUISINE_CHOICES, DIET_CHOICES
 
 def must_be_unique(value):
     user = User.objects.filter(email=value)
     if len(user) > 0:
         raise forms.ValidationError("Email Already Exists")
-    # Always return the cleaned data, whether you have changed it or
-    # not.
     return value
 
 
@@ -47,7 +45,7 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'location', 'avatar')
+        fields = ('bio', 'location', 'avatar', 'facebook', 'instagram', 'pinterest')
 
 
 class RecipeForm(forms.Form):
@@ -55,7 +53,8 @@ class RecipeForm(forms.Form):
     prep_time = forms.IntegerField(label='Prep Time (minutes): ', min_value=0)
     cook_time = forms.IntegerField(label='Cook Time (minutes): ', min_value=0)
     servings = forms.IntegerField(label='Servings: ', min_value=0)
-    cuisine = forms.ChoiceField(choices=cuisine_choices)
+    cuisine = forms.ChoiceField(choices=CUISINE_CHOICES)
+    diet = forms.MultipleChoiceField(choices=DIET_CHOICES, required=False, widget=forms.CheckboxSelectMultiple)
     image = forms.ImageField(label='Submit picture: ', max_length=500)
     description = forms.CharField(label='Description: ', max_length=500, widget=forms.Textarea)
     ingredients = forms.CharField(label='Ingredients: ', widget=forms.Textarea)
@@ -68,7 +67,8 @@ class RecipeForm(forms.Form):
         recipe_instance.prep_time = self.cleaned_data["prep_time"]
         recipe_instance.cook_time = self.cleaned_data["cook_time"]
         recipe_instance.servings = self.cleaned_data["servings"]
-        recipe_instance.cuisine - self.cleaned_data["cuisine"]
+        recipe_instance.cuisine = self.cleaned_data["cuisine"]
+        recipe_instance.diet = self.cleaned_data["diet"]
         recipe_instance.image = self.cleaned_data["image"]
         recipe_instance.description = self.cleaned_data["description"]
         recipe_instance.ingredients = self.cleaned_data["ingredients"]
@@ -80,15 +80,14 @@ class RecipeForm(forms.Form):
         
         return recipe_instance
 
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ('title', 'content')
+    content = SummernoteTextFormField()
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         labels = {'body': 'Comment: '}
         fields = ('body', )
-
-class BlogForm(forms.ModelForm):
-    class Meta:
-        model = Blog
-        fields = ('title', 'content')
-    content = SummernoteTextFormField()

@@ -4,7 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
-from .recipe_utils import cuisine_choices
+from .recipe_utils import CUISINE_CHOICES, DIET_CHOICES
+from multiselectfield import MultiSelectField
 
 def upload_to_avatars(instance, filename):
     ext = filename.split('.')[-1]
@@ -22,7 +23,8 @@ class Recipe(models.Model):
     cook_time = models.IntegerField()
     total_time = models.IntegerField()
     servings = models.IntegerField()
-    cuisine = models.IntegerField(choices=cuisine_choices)
+    cuisine = models.IntegerField(choices=CUISINE_CHOICES)
+    diet = MultiSelectField(choices=DIET_CHOICES)
     image = models.ImageField(
         max_length=500,
         upload_to=upload_to_recipies,
@@ -59,29 +61,19 @@ def pre_save_reciever(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator(instance)
 
 pre_save.connect(pre_save_reciever, sender=Recipe)
-    
-
-class Comment(models.Model):
-    body = models.TextField(max_length=500)
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='comments', null=True)
-    published_on = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['-published_on']
-
-    def __str__(self):
-        return str(self.author) + " on " + str(self.recipe)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=35, blank=True)
     avatar = models.ImageField(
         max_length=500,
         upload_to=upload_to_avatars,
         null=True,
         blank=True)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=35, blank=True)
+    facebook = models.CharField(max_length=50, blank=True)
+    instagram = models.CharField(max_length=50, blank=True)
+    pinterest = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return str(self.user)
@@ -129,3 +121,15 @@ def pre_save_reciever_blog(sender, instance, *args, **kwargs):
         instance.slug = unique_slug_generator_blog(instance)
 
 pre_save.connect(pre_save_reciever_blog, sender=Blog)
+
+class Comment(models.Model):
+    body = models.TextField(max_length=500)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    entry = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments', null=True)
+    published_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-published_on']
+
+    def __str__(self):
+        return str(self.author) + " on " + str(self.entry)
