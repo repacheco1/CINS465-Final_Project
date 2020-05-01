@@ -96,7 +96,9 @@ class SearchResultsView(generic.ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = Recipe.objects.filter(
-            Q(name__icontains=query) | Q(ingredients__icontains=query) | Q(total_time__icontains=query)
+            Q(name__icontains=query) | 
+            Q(ingredients__icontains=query) | 
+            Q(total_time__icontains=query)
         ).order_by('-created_on')
         return object_list
 

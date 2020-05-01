@@ -17,12 +17,13 @@
         <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="400px">
         <a class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} </a>
         <br>
-        <a class=" text-muted">Prep Time: {{ recipe.prep_time }} minutes. | Cook Time: {{ recipe.cook_time }} minutes. | Total Time: {{ recipe.total_time }} minutes.</a>
-        {% if  recipe.diet%}
-          <p class=" text-muted">Cuisine: {{ recipe.get_cuisine_display }} | Diets: {{recipe.diet}} </p>
-        {% else %}
-          <p class=" text-muted">Cuisine: {{ recipe.get_cuisine_display }}</p>
-        {% endif %}
+        <a class=" text-muted">Prep Time: {{ recipe.prep_time }} minutes | Cook Time: {{ recipe.cook_time }} minutes | Total Time: {{ recipe.total_time }} minutes</a>
+        <p class=" text-muted">Cuisine: {{ recipe.get_cuisine_display }} 
+          {% if  recipe.diet%}
+          | Diets: {{recipe.diet}} </p>
+          {% else %}
+            </p>
+          {% endif %}
         <h5> Description: </h5>
         <p class="card-text ">{{ recipe.description |  linebreaks |  safe }}</p>
         <h5> Ingredients: </h5>
