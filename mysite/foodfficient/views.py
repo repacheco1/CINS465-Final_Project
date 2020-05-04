@@ -112,7 +112,7 @@ class ProfileDetail(generic.DetailView):
 
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter().order_by('-created_on')
-    paginate_by = 12
+    paginate_by = 1
     template_name = "recipes.html"
 
 class RecipeDetail(generic.DetailView):

@@ -10,7 +10,7 @@ urlpatterns = [
     path('register/', views.registerPageView, name='register'),
     path('users/', views.ProfileList.as_view(), name='profile'),
     path('edit-profile/', views.editProfilePageView, name='edit_profile'),
-    path('user/<str:username>/', views.ProfileDetail.as_view(), name='profile_details'),
+    path('user/<int:pk>/', views.ProfileDetail.as_view(), name='profile_details'),
     path('add-recipe/', views.addRecipePageView, name='add_recipe'),
     path('logout/', views.logoutPageView, name='logout'),
     path('about/', views.aboutPageView, name='about'),
@@ -22,7 +22,9 @@ urlpatterns = [
     path('blog/<slug:slug>/', views.blogDetailPageView, name='blog_details'),
     path('summernote/', include('django_summernote.urls')),
     path('recipe/<slug:slug>/', views.RecipeDetail.as_view(), name='recipe_details'),
+    path('comments/', include('django_comments_xtd.urls')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('friendship/', include('friendship.urls')),
     # path('recipes/', views.recipesPageView, name='Recipes'),
 ]+ static(
     settings.MEDIA_URL,
