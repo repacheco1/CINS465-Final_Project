@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.models import User
 from . import (forms, models)
-from .models import Recipe, Blog
+from .models import Recipe, Blog, Profile
 from .forms import CommentForm, RecipeForm, BlogForm
 
 
@@ -27,24 +27,24 @@ def homePageView(request):
     }
     return render(request, "index.html", context=indexContext)
 
-def profilePageView(request):
-    if request.method == "POST":
-        form_instance = forms.ProfileForm(request.POST)
-        if form_instance.is_valid():
-            form_instance.save()
-            return redirect("/profile/")
-            # print("Hi")
-    else:
-        form_instance = forms.ProfileForm
+# def profilePageView(request):
+#     if request.method == "POST":
+#         form_instance = forms.ProfileForm(request.POST)
+#         if form_instance.is_valid():
+#             form_instance.save()
+#             return redirect("/profile/")
+#             # print("Hi")
+#     else:
+#         form_instance = forms.ProfileForm
 
-    # recipe_count = Recipe.objects.filter(author='id').count()
-    profileContext = {
-        "title":"Profile - Foodfficient",
-        "pageTitle":"Welcome to profiles Foodfficient!",
-        # "recipe_count": recipe_count,
-        "body2":"",
-    }
-    return render(request, "profile.html", context=profileContext)
+#     # recipe_count = Recipe.objects.filter(author='id').count()
+#     profileContext = {
+#         "title":"Profile - Foodfficient",
+#         "pageTitle":"Welcome to profiles Foodfficient!",
+#         # "recipe_count": recipe_count,
+#         "body2":"",
+#     }
+#     return render(request, "profile.html", context=profileContext)
 
 def editProfilePageView(request):
     # if request.method == "POST":
@@ -102,8 +102,17 @@ class SearchResultsView(generic.ListView):
         ).order_by('-created_on')
         return object_list
 
+class ProfileList(generic.ListView):
+    queryset = Profile.objects.filter().order_by()
+    template_name = "profile.html"
+
+class ProfileDetail(generic.DetailView):
+    model = Profile
+    template_name = "profile_details.html"
+
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter().order_by('-created_on')
+    paginate_by = 12
     template_name = "recipes.html"
 
 class RecipeDetail(generic.DetailView):

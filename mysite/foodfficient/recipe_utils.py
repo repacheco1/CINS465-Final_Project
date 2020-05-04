@@ -115,11 +115,3 @@ DIET_CHOICES = (
     (4, 'Vegan'),
     (5, 'Vegetarian'),
 )
-
-# RATING_CHOICES = (
-#     ('1', _('Terrible')),
-#     ('2', _('Poor')),
-#     ('3', _('Average')),
-#     ('4', _('Very Good')),
-#     ('5', _('Excellent')),
-# )

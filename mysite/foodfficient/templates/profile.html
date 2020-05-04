@@ -2,25 +2,28 @@
 
 {% load static %}
 
-{% block title %}Profile - Foodfficient{% endblock %}
+{% block title %}Profiles - Foodfficient{% endblock %}
 {% block content %}
+<h1 class="text-center">Profiles - Foodfficient</h1>
 
-<h1 class="text-center">{{ user.get_full_name }}</h1>
 
-
-<ul>
-    <li>Profile picture: </li>
-    {% if user.profile.avatar %}
-        <img src="{{ user.profile.avatar.url}}" class="img-thumbnail" height="200" width="200"/>
+<div class="container-fluid">
+    {% if profile_list %}
+        <div class="row justify-content-center">
+            <div class="col-md-10 mt-3 left">
+                {% for profile in profile_list %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ profile.user }}</h2>
+                        <p class="card-text text-muted h6">Date Joined: {{ profile.user.date_joined }} </p>
+                        {% comment %} <p class="card-text">{{blog.content|slice:":500"|safe }}</p> {% endcomment %}
+                        <a href="{% url 'profile_details' profile.user.username  %}" class="btn btn-success">Read More &rarr;</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    </div>
     {% endif %}
-    <li>Username: {{ user.username }}</li>
-    <li>Bio: {{ user.profile.bio }}</li>
-    <li>Location: {{ user.profile.location }}</li>
-    <li>Joined on: {{ user.date_joined }}</li>
-    <li>Last login: {{ user.last_login }}</li>
-    <li>Recipes submitted: {{ author }} ...</li>
-</ul>
-
-<a href="/edit-profile/" type="button" class="btn btn-success">Edit Profile</a>
+</div>
 
 {% endblock %}

@@ -47,9 +47,12 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'django_summernote',
     'multiselectfield',
-    # 'reviews',
+    'star_ratings',
     # 'rest_framework',
 ]
+
+STAR_RATINGS_RERATE = True
+STAR_RATINGS_RERATE_SAME_DELETE = False
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

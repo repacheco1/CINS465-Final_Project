@@ -7,14 +7,17 @@ from django.utils.text import slugify
 from .recipe_utils import CUISINE_CHOICES, DIET_CHOICES
 from multiselectfield import MultiSelectField
 
+#Change name avatar picture
 def upload_to_avatars(instance, filename):
     ext = filename.split('.')[-1]
     return 'avatars/%s/%s.%s' % (instance.user.username, instance.user.username, ext)
 
+#Change name recipe picture
 def upload_to_recipies(instance, filename):
     ext = filename.split('.')[-1]
     return 'recipies/%s/%s.%s' % (instance.author.username, instance.slug, ext)
 
+#Recipe Model
 class Recipe(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -62,8 +65,10 @@ def pre_save_reciever(sender, instance, *args, **kwargs):
 
 pre_save.connect(pre_save_reciever, sender=Recipe)
 
+# Profile Model
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # slug = models.SlugField(max_length=200, unique=True)
     avatar = models.ImageField(
         max_length=500,
         upload_to=upload_to_avatars,
@@ -88,7 +93,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-
+# Blog Model
 class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, unique=True)
@@ -122,6 +127,7 @@ def pre_save_reciever_blog(sender, instance, *args, **kwargs):
 
 pre_save.connect(pre_save_reciever_blog, sender=Blog)
 
+# Comment model
 class Comment(models.Model):
     body = models.TextField(max_length=500)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
