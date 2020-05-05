@@ -27,25 +27,6 @@ def homePageView(request):
     }
     return render(request, "index.html", context=indexContext)
 
-# def profilePageView(request):
-#     if request.method == "POST":
-#         form_instance = forms.ProfileForm(request.POST)
-#         if form_instance.is_valid():
-#             form_instance.save()
-#             return redirect("/profile/")
-#             # print("Hi")
-#     else:
-#         form_instance = forms.ProfileForm
-
-#     # recipe_count = Recipe.objects.filter(author='id').count()
-#     profileContext = {
-#         "title":"Profile - Foodfficient",
-#         "pageTitle":"Welcome to profiles Foodfficient!",
-#         # "recipe_count": recipe_count,
-#         "body2":"",
-#     }
-#     return render(request, "profile.html", context=profileContext)
-
 def editProfilePageView(request):
     # if request.method == "POST":
     #     form_instance = forms.ProfileForm(request.POST)
@@ -104,7 +85,7 @@ class SearchResultsView(generic.ListView):
 
 class ProfileList(generic.ListView):
     queryset = Profile.objects.filter().order_by()
-    template_name = "profile.html"
+    template_name = "profiles.html"
 
 class ProfileDetail(generic.DetailView):
     model = Profile
@@ -118,29 +99,6 @@ class RecipeList(generic.ListView):
 class RecipeDetail(generic.DetailView):
     model = Recipe
     template_name = "recipe_details.html"
-    
-# def recipeDetailPageView(request, slug):
-#     recipe = get_object_or_404(Recipe, slug=slug)
-#     comments = recipe.comments.filter()
-#     new_comment = None
-#     if request.method =="POST":
-#         form = CommentForm(data=request.POST)
-#         if form.is_valid():
-#             new_comment = form.save(commit=False)
-#             new_comment.author = request.user
-#             new_comment.recipe = recipe
-#             new_comment.save()
-#     else:
-#         form = CommentForm()
-
-#     commentContext = {
-#         "recipe": recipe,
-#         "comments": comments,
-#         "new_comment": new_comment,
-#         # "rec_id" = rec_id,
-#         "form":form
-#     }
-#     return render(request, "recipe_details.html", context=commentContext)
 
 class BlogList(generic.ListView):
     queryset = Blog.objects.filter().order_by('-published_on')
