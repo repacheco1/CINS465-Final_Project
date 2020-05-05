@@ -25,6 +25,12 @@ SECRET_KEY = 'yj7s7w4w5eq8fp+!12zq#)y=!1cop5^9bv@ff-t2pi==7es&py'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ADMINS = (
+    ('Roberto Pacheco', 'robestev93@gmail.com'),
+)
+
+MANAGERS = ADMINS
+
 SITE_ID = 1
 
 ALLOWED_HOSTS = ['192.168.1.10','localhost',]
@@ -42,16 +48,18 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
     'foodfficient.apps.FoodfficientConfig',
     'crispy_forms',
     'django_cleanup.apps.CleanupConfig',
     'django_summernote',
     'multiselectfield',
-    'reviews',
-    'friendship'
+    'star_ratings',
+    'friendship',
+    'django_comments_xtd',
+    'django_comments',
     # 'rest_framework',
 ]
 
@@ -135,10 +143,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+
+#Email Settings
+EMAIL_HOST          = "smtp.gmail.com" 
+EMAIL_PORT          = "587"
+EMAIL_HOST_USER     = "foodfficient@gmail.com"
+EMAIL_HOST_PASSWORD = "pZMpq7GfZwyzBVx"
+EMAIL_USE_TLS       = True # Yes for Gmail
+DEFAULT_FROM_EMAIL  = "Roberto Pacheco <robestev93@gmail.com>"
+SERVER_EMAIL        = DEFAULT_FROM_EMAIL
+
 STATIC_URL = '/static/'
 
 # MEDIA_ROOT = BASE_DIR + '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
+#Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#Star rating
+STAR_RATINGS_RERATE = True
+STAR_RATINGS_RERATE_SAME_DELETE = False
+
+#Summernote
+# SUMMERNOTE_THEME = 'lite'
+
+#Comments
+COMMENTS_APP = "django_comments_xtd"
+COMMENTS_XTD_MAX_THREAD_LEVEL = 10
+COMMENTS_XTD_CONFIRM_EMAIL = False

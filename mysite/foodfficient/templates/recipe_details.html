@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% load ratings %}
+
+{% load comments %}
+{% comment %} {% load comments_xtd %} {% endcomment %}
+
 {% load static %}
 
 {% block title %}{{ recipe.name }} - Foodfficient{% endblock %}
@@ -15,7 +20,7 @@
         <div class="col text-center">
             <h1>{{ recipe.name }}</h1>
         </div>
-        <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="450px">
+        <img class="card-img-top" src="{{recipe.image.url}}" alt="{{ recipe.name }}" height="400px">
         <a class=" text-muted">By {{ recipe.author }} posted on {{ recipe.created_on }} </a>
         <br>
         <a class=" text-muted">Prep Time: {{ recipe.prep_time }} minutes | Cook Time: {{ recipe.cook_time }} minutes | Total Time: {{ recipe.total_time }} minutes</a>
@@ -35,9 +40,44 @@
         <h5> Instructions: </h5>
         <a class="card-text ">{{ recipe.instructions |  linenumbers |  linebreaks |  safe}}</a>
       </div>
+      {% ratings object %}
     </div>
   </div>
 </div>
+
+{% get_comment_count for recipe as comment_count %}
+
+{% comment %} <div class="container">
+  {% get_comment_count for object as comment_count %}
+{% if comment_count %}
+  <H5 class="text-center">
+    {% blocktrans count comment_count=comment_count %}
+    There is {{ comment_count }} comment below.
+    {% plural %}
+    There are {{ comment_count }} comments below.
+    {% endblocktrans %}
+  </H5>
+  <hr/>
+  {% endif %}
+
+  {% if object.allow_comments %}
+  <div class="comment">
+    <h4 class="text-center">Post your comment</h4>
+    <div class="well">
+      {% render_comment_form for object %}
+    </div>
+  </div>
+  {% else %}
+  <h5 class="text-center">comments are disabled for this article</h5>
+  {% endif %}
+
+  {% if comment_count %}
+  <hr/>
+  <div id="comment-list">
+    {% render_comment_list for object %}
+  </div>
+  {% endif %}
+</div> {% endcomment %}
 
 {% endblock %}
 

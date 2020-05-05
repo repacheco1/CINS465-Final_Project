@@ -106,16 +106,16 @@ class ProfileList(generic.ListView):
     queryset = Profile.objects.filter().order_by()
     template_name = "profile.html"
 
-class ProfileDetails(generic.DetailView):
+class ProfileDetail(generic.DetailView):
     model = Profile
     template_name = "profile_details.html"
 
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter().order_by('-created_on')
-    paginate_by = 12
+    paginate_by = 1
     template_name = "recipes.html"
 
-class RecipeDetails(generic.DetailView):
+class RecipeDetail(generic.DetailView):
     model = Recipe
     template_name = "recipe_details.html"
     
