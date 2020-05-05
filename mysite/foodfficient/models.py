@@ -68,7 +68,7 @@ pre_save.connect(pre_save_reciever, sender=Recipe)
 # Profile Model
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
     avatar = models.ImageField(
         max_length=500,
         upload_to=upload_to_avatars,
@@ -80,9 +80,25 @@ class Profile(models.Model):
     instagram = models.CharField(max_length=50, blank=True)
     pinterest = models.CharField(max_length=50, blank=True)
 
+    def get_absolute_url(self):
+        return reverse("posts:detail", kwargs={"slug": self.slug})
+
     def __str__(self):
         return str(self.user)
 
+def unique_slug_generator_profile(instance):
+    constant_slug = slugify(instance.user)
+    slug = constant_slug
+    gen = instance.__class__
+    while gen.objects.filter(slug=slug).exists():
+        slug = "{slug}".format(slug=constant_slug)
+    return slug
+
+def pre_save_reciever_profile(sender, instance, *args, **kwargs):
+    if not instance.slug or instance.user != Profile.objects.filter(slug=instance.slug):
+        instance.slug = unique_slug_generator_profile(instance)
+
+pre_save.connect(pre_save_reciever_profile, sender=Profile)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

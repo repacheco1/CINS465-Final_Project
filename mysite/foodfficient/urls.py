@@ -10,7 +10,7 @@ urlpatterns = [
     path('register/', views.registerPageView, name='register'),
     path('users/', views.ProfileList.as_view(), name='profile'),
     path('edit-profile/', views.editProfilePageView, name='edit_profile'),
-    path('user/<int:pk>/', views.ProfileDetail.as_view(), name='profile_details'),
+    path('users/<slug:slug>/', views.ProfileDetails.as_view(), name='profile_details'),
     path('add-recipe/', views.addRecipePageView, name='add_recipe'),
     path('logout/', views.logoutPageView, name='logout'),
     path('about/', views.aboutPageView, name='about'),
@@ -21,12 +21,12 @@ urlpatterns = [
     path('blog/', views.BlogList.as_view(), name='blog'),
     path('blog/<slug:slug>/', views.blogDetailPageView, name='blog_details'),
     path('summernote/', include('django_summernote.urls')),
-    path('recipe/<slug:slug>/', views.RecipeDetail.as_view(), name='recipe_details'),
-    path('comments/', include('django_comments_xtd.urls')),
-    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('recipe/<slug:slug>/', views.RecipeDetails.as_view(), name='recipe_details'),
+    # path('comments/', include('django_comments_xtd.urls')),
+    # path('ratings/', include('star_ratings.urls', namespace='ratings')),
     path('friendship/', include('friendship.urls')),
     # path('recipes/', views.recipesPageView, name='Recipes'),
-]+ static(
+] + static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT
 )

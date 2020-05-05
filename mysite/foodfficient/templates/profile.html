@@ -17,7 +17,7 @@
                         <h2 class="card-title">{{ profile.user }}</h2>
                         <p class="card-text text-muted h6">Date Joined: {{ profile.user.date_joined }} </p>
                         {% comment %} <p class="card-text">{{blog.content|slice:":500"|safe }}</p> {% endcomment %}
-                        <a href="{% url 'profile_details' profile.user.pk  %}" class="btn btn-success">See user &rarr;</a>
+                        <a href="{% url 'profile_details' profile.slug  %}" class="btn btn-success">See user &rarr;</a>
                     </div>
                 </div>
                 {% endfor %}
