@@ -6,6 +6,13 @@ services:
     build: .
     volumes:
        - .:/code
+    links:
+       - redis:redis
     ports:
        - 8000:8000
     command: python /code/mysite/manage.py runserver 0.0.0.0:8000
+
+  redis:
+    image: redis
+    expose:
+       - 6379

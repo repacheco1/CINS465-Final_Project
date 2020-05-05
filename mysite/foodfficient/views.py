@@ -84,11 +84,11 @@ class SearchResultsView(generic.ListView):
         return object_list
 
 class ProfileList(generic.ListView):
-    queryset = Profile.objects.filter().order_by()
+    queryset = Profile.objects.filter().order_by('user__date_joined')
     paginate_by = 20
     template_name = "profiles.html"
 
-class ProfileDetail(generic.DetailView):
+class ProfileDetails(generic.DetailView):
     model = Profile
     template_name = "profile_details.html"
 
@@ -97,7 +97,7 @@ class RecipeList(generic.ListView):
     paginate_by = 12
     template_name = "recipes.html"
 
-class RecipeDetail(generic.DetailView):
+class RecipeDetails(generic.DetailView):
     model = Recipe
     template_name = "recipe_details.html"
 
@@ -110,7 +110,7 @@ class BlogList(generic.ListView):
 #     model = Blog
 #     template_name = "blog_details.html"
 
-def blogDetailPageView(request, slug):
+def blogDetailsPageView(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     comments = blog.comments.filter()
     new_comment = None
@@ -133,6 +133,14 @@ def blogDetailPageView(request, slug):
     }
     return render(request, "blog_details.html", context=commentContext)
 
+
+def chatPageView(request):
+    return render(request, 'chat/index.html')
+
+def chatRoomPageView(request, room_name):
+    return render(request, 'chat/room.html', {
+        'room_name': room_name
+    })
 
 @login_required
 

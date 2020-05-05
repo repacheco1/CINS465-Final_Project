@@ -80,8 +80,11 @@ class Profile(models.Model):
     instagram = models.CharField(max_length=50, blank=True)
     pinterest = models.CharField(max_length=50, blank=True)
 
-    def get_absolute_url(self):
-        return reverse("posts:detail", kwargs={"slug": self.slug})
+    class Meta:
+        ordering = ['-user']
+
+    # def get_absolute_url(self):
+    #     return reverse("posts:detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return str(self.user)

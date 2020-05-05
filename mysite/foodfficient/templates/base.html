@@ -55,6 +55,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'blog' %}">Blog</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'chat' %}">Chat</a>
+                </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" action="{% url 'search_results' %}" method="get">
                 <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
@@ -86,7 +89,6 @@
         {% endfor %}
         {% if page_obj.has_next %}
         <li class="page-item"><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-
         {% endif %}
     </ul>
     </nav>
