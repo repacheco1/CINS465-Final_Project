@@ -85,6 +85,7 @@ class SearchResultsView(generic.ListView):
 
 class ProfileList(generic.ListView):
     queryset = Profile.objects.filter().order_by()
+    paginate_by = 20
     template_name = "profiles.html"
 
 class ProfileDetail(generic.DetailView):
@@ -93,7 +94,7 @@ class ProfileDetail(generic.DetailView):
 
 class RecipeList(generic.ListView):
     queryset = Recipe.objects.filter().order_by('-created_on')
-    paginate_by = 1
+    paginate_by = 12
     template_name = "recipes.html"
 
 class RecipeDetail(generic.DetailView):
@@ -102,6 +103,7 @@ class RecipeDetail(generic.DetailView):
 
 class BlogList(generic.ListView):
     queryset = Blog.objects.filter().order_by('-published_on')
+    paginate_by = 10
     template_name = "blog.html"
 
 # class BlogDetails(generic.DetailView):
