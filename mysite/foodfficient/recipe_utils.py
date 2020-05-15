@@ -3,7 +3,7 @@ CUISINE_CHOICES = (
     (2, 'Albanian'),
     (3, 'Argentine'),
     (4, 'Andhra'),
-    (5, 'Anglo-Indian'),
+    (5, 'American'),
     (6, 'Arab'),
     (7, 'Armenian'),
     (8, 'Assyrian'),

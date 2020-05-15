@@ -7,7 +7,7 @@
 <h1 class="text-center">Blog - Foodfficient</h1>
 
 <div class="col text-center">
-    {% if user.is_superuser %}
+    {% if user.is_staff %}
         <a href="{% url 'add_blog' %}" class="btn btn-primary">Add blog Entry</a>
     {% endif %}
 </div>

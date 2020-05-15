@@ -238,3 +238,8 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+#media
+mysite/media/
+
+#Ignore Certs
+nginx/ssl/

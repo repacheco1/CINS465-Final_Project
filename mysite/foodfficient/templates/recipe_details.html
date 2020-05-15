@@ -2,8 +2,9 @@
 
 {% load ratings %}
 
+{% comment %}
 {% load comments %}
-{% comment %} {% load comments_xtd %} {% endcomment %}
+{% load comments_xtd %} {% endcomment %}
 
 {% load static %}
 
@@ -45,9 +46,10 @@
   </div>
 </div>
 
+{% comment %}
 {% get_comment_count for recipe as comment_count %}
 
-{% comment %} <div class="container">
+ <div class="container">
   {% get_comment_count for object as comment_count %}
 {% if comment_count %}
   <H5 class="text-center">

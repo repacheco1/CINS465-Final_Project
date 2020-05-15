@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% load static %}
@@ -13,19 +14,31 @@
 </h1>
 
 
-<ul>
-    <li>Profile picture: </li>
-    {% if profile.avatar %}
-        <img src="{{ profile.avatar.url}}" class="img-thumbnail" height="200" width="200"/>
-    {% endif %}
-    <li>Username: {{ profile.user.username }}</li>
-    <li>Bio: {{ profile.bio }}</li>
-    <li>Location: {{ profile.location }}</li>
-    <li>Joined on: {{ profile.user.date_joined }}</li>
-    <li>Last login: {{ profile.user.last_login }}</li>
-    <li>Recipes submitted: {{ recipe.author.count  }} ...</li>
-</ul>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-10 mt-3 left">
+            <div class="card mb-4">
+                <div class="card-body">
+                <ul>
+                    <li>Profile picture: </li>
+                    {% if profile.avatar %}
+                        <img src="{{ profile.avatar.url}}" class="img-thumbnail" height="200" width="200"/>
+                    {% endif %}
+                    <li>Username: {{ profile.user.username }}</li>
+                    <li>Bio: {{ profile.bio }}</li>
+                    <li>Location: {{ profile.location }}</li>
+                    <li>Joined on: {{ profile.user.date_joined }}</li>
+                    <li>Last login: {{ profile.user.last_login }}</li>
+                    <li>Recipes submitted: {{ recipe.author.count  }} ...</li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<a href="/edit-profile/" type="button" class="btn btn-success">Edit Profile</a>
+{% comment %} 
+<a href="/edit-profile/" type="button" class="btn btn-success">Edit Profile</a> 
+{% endcomment %}
 
 {% endblock %}

@@ -27,7 +27,7 @@ class Recipe(models.Model):
     total_time = models.IntegerField()
     servings = models.IntegerField()
     cuisine = models.IntegerField(choices=CUISINE_CHOICES)
-    diet = MultiSelectField(choices=DIET_CHOICES)
+    diet = MultiSelectField(choices=DIET_CHOICES, blank=True)
     image = models.ImageField(
         max_length=500,
         upload_to=upload_to_recipies,

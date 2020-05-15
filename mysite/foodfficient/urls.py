@@ -26,7 +26,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('recipe/<slug:slug>/', views.RecipeDetails.as_view(), name='recipe_details'),
     # path('comments/', include('django_comments_xtd.urls')),
-    # path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
     path('friendship/', include('friendship.urls')),
     # path('recipes/', views.recipesPageView, name='Recipes'),
 ]+ static(

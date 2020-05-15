@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'yj7s7w4w5eq8fp+!12zq#)y=!1cop5^9bv@ff-t2pi==7es&py'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.1.10','localhost',]
+ALLOWED_HOSTS = ['35.212.170.102', 'www.foodfficient.com','foodfficient.com']
 
 STATIC_URL = '/static/'
 
@@ -49,9 +49,13 @@ INSTALLED_APPS = [
     'django_summernote',
     'multiselectfield',
     'friendship',
+    'star_ratings',
     # 'reviews',
     # 'rest_framework',
 ]
+
+STAR_RATINGS_RERATE = True
+STAR_RATINGS_RERATE_SAME_DELETE = False
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -101,9 +105,17 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'foodfficient',
+        'USER': 'x-ckr',
+        'PASSWORD':'v34jLGutZFASq94',
+        'HOST': '34.70.248.248',
+        'PORT': 5432,
     }
 }
 
@@ -151,3 +163,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
